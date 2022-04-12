@@ -9,7 +9,7 @@ Seller.init(
       type: DataTypes.STRING,
       defaultValue: "",
     },
-    fullName: {
+    name: {
       type: DataTypes.STRING,
       defaultValue: "",
     },
