@@ -29,7 +29,9 @@ class BaseService {
 
   async get(id) {
     try {
-      const item = await this.model.findById(id);
+      const item = await this.model.findOne({
+        where: { id: id },
+      });
       if (!item) {
         const error = new Error("Item not found");
         error.statusCode = 404;
