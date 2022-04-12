@@ -1,46 +1,18 @@
 import express from "express";
-import EmailHelper from "../../helper/email/EmailHelper";
 import upload from "../../helper/file/FileUpload";
-import SaveHelper from "../../helper/file/FileSaveHelper";
+import sellerController from "./sellerController";
+import SellerValidation from "./sellerValidate";
 const router = express.Router();
-const mailer = new EmailHelper();
-const saver = new SaveHelper();
 
-router.post("/test", async (req, res) => {
-  try {
-    const content = {
-      link: "http://localhost:3000/seller/register",
-    };
-    const mailOptions = {
-      from: req.body.from,
-      to: req.body.to,
-    };
-    const result = await mailer.sendRegisterSeller(
-      mailOptions.from,
-      mailOptions.to,
-      content
-    );
-    res.status(200).json({
-      message: "Send mail success",
-      result: result,
-    });
-  } catch (error) {
-    console.log({ error });
-    res.status(500).send(error);
-  }
-});
-
-router.post("/upload", upload.single("file"), async (req, res) => {
-  try {
-    const result = await saver.saveImage(req.file.path);
-    res.status(200).json({
-      message: "Upload success",
-      result: result,
-    });
-  } catch (error) {
-    console.log({ error });
-    res.status(500).send(error);
-  }
-});
+router.get("/", sellerController.getAll);
+router.post("/", SellerValidation.registerValidation, sellerController.insert);
+router.get("/:id", sellerController.get);
+router.post("/test", sellerController.test);
+router.post("/upload", upload.single("file"), sellerController.upload);
+router.post(
+  "/upload-video",
+  upload.single("file"),
+  sellerController.uploadVideo
+);
 
 export default router;

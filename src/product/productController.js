@@ -1,9 +1,8 @@
 import ProductService from "./productSevice";
 import BaseController from "../../base/BaseController";
+import autoBind from "auto-bind";
 
 const productSevice = new ProductService();
-
-import autoBind from "auto-bind";
 
 class ProductController extends BaseController {
   constructor() {
