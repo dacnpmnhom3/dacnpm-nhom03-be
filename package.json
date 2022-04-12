@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "mocha test --reporter mochawesome --reporter-options autoOpen=true",
+    "test": "mocha test --reporter mochawesome --reporter-options autoOpen=true --experimental-modules --es-module-specifier-resolution=node --timeout 10000",
     "build": "node_modules/babel/bin/babel.js src --source-maps --out-dir dist",
     "start": "node --experimental-modules --es-module-specifier-resolution=node  src/server.js",
     "dev": "nodemon --experimental-modules --es-module-specifier-resolution=node  src/server.js"
@@ -22,6 +22,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.2",
     "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
     "cloudinary": "^1.29.0",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.6",

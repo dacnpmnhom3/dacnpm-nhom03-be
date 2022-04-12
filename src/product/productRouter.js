@@ -9,5 +9,6 @@ router.get("/:id", authenticateByJwt, ProductController.get);
 router.post("/", authenticateByJwt, ProductController.insert);
 router.put("/:id", authenticateByJwt, ProductController.update);
 router.delete("/:id", ProductController.delete);
+router.delete("/hard/:id", ProductController.hardDelete);
 
 export default router;

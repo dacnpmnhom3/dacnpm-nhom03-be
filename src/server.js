@@ -58,3 +58,5 @@ const server = app.listen(port, () => {
   // string interpolation:
   console.log(`Example app listening at http://${address}:${port}`);
 });
+
+export default app;
