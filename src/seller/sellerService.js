@@ -28,6 +28,17 @@ class SellerService extends BaseSevice {
         });
     });
   }
+  async findOneByEmail(email) {
+    try {
+      const foundUser = await this.model.findOne({
+        where: { email: email },
+      });
+      return foundUser;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
 }
 
 export default SellerService;

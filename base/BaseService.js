@@ -37,7 +37,7 @@ class BaseService {
         error.statusCode = 404;
         throw error;
       }
-      return new HttpResponse(item[0]);
+      return new HttpResponse(item);
     } catch (error) {
       console.error(error);
       throw error;

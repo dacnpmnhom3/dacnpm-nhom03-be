@@ -8,6 +8,7 @@ Seller.init(
     email: {
       type: DataTypes.STRING,
       defaultValue: "",
+      unique: true,
     },
     fullName: {
       type: DataTypes.STRING,

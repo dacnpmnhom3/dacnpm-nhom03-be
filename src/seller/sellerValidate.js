@@ -6,7 +6,7 @@ class SellerValidation {
       email: joi.string().max(255).email().required(),
       password: joi.string().min(6).max(255).required(),
       confirmPassword: joi.string().max(255).required(),
-      name: joi.string().max(255).required(),
+      fullName: joi.string().max(255).required(),
       phone: joi.number().min(9),
     };
     const result = joi.validate(req.body, seller);

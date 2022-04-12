@@ -25,6 +25,26 @@ class ProductController extends BaseController {
       next(e);
     }
   }
+  async getAll(req, res, next) {
+    try {
+      const result = await this.service.getAllProducts(req.user);
+
+      return res.status(200).json(result);
+    } catch (e) {
+      next(e);
+    }
+  }
+  async insert(req, res, next) {
+    try {
+      const data = { ...req.body };
+      data.ownerId = req.user.id;
+      const response = await this.service.insert(data);
+
+      return res.status(response.statusCode).json(response);
+    } catch (e) {
+      next(e);
+    }
+  }
 }
 
 export default new ProductController();

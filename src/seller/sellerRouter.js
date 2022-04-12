@@ -4,8 +4,10 @@ import sellerController from "./sellerController";
 import SellerValidation from "./sellerValidate";
 const router = express.Router();
 
+router.post("/login", sellerController.handleLogin);
+
 router.get("/", sellerController.getAll);
-router.post("/", SellerValidation.registerValidation, sellerController.insert);
+router.post("/", SellerValidation.registerValidation, sellerController.createASeller);
 router.get("/:id", sellerController.get);
 router.post("/test", sellerController.test);
 router.post("/upload", upload.single("file"), sellerController.upload);
