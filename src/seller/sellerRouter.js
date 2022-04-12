@@ -2,6 +2,7 @@ import express from "express";
 import EmailHelper from "../../helper/email/EmailHelper";
 import upload from "../../helper/file/FileUpload";
 import SaveHelper from "../../helper/file/FileSaveHelper";
+import sellerController from "./sellerController";
 const router = express.Router();
 const mailer = new EmailHelper();
 const saver = new SaveHelper();
@@ -42,5 +43,7 @@ router.post("/upload", upload.single("file"), async (req, res) => {
     res.status(500).send(error);
   }
 });
+
+router.post("/login", sellerController.login);
 
 export default router;

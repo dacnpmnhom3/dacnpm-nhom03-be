@@ -8,6 +8,7 @@ import productRouter from "./product/productRouter";
 import authRouter from "./auth/auth.router";
 import userRouter from "./users/userRouter";
 import adminRouter from "./admins/adminRouter";
+import sellerRouter from "./seller/sellerRouter";
 
 import passport from "passport";
 import configPassport from "../config/passport";
@@ -47,6 +48,8 @@ app.use("/api/products", productRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
 app.use("/api/admin", adminRouter);
+app.use("/api/seller", sellerRouter);
+
 // arrow functions
 const port = process.env.PORT || 5000;
 const server = app.listen(port, () => {
