@@ -142,6 +142,20 @@ class AdminController extends BaseController {
       res.status(error.status || 501).json({ message: error.message });
     }
   }
+  async getPendingProducts(req, res) {
+    try {
+      const result = await this.service.getPendingProducts();
+      if (result.error) {
+        res.status(500).send({
+          message: result.error,
+        });
+        return;
+      }
+      res.send(result);
+    } catch (error) {
+      res.status(error.status || 501).json({ message: error.message });
+    }
+  }
 }
 
 export default new AdminController();

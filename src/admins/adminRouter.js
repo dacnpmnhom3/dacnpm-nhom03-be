@@ -10,7 +10,11 @@ router.get(
   customAuthenticateByJwt,
   AdminController.getTotalReport
 );
-
+router.get(
+  "/pending-products",
+  customAuthenticateByJwt,
+  AdminController.getPendingProducts
+);
 //admin API
 router.get("/", customAuthenticateByJwt, AdminController.getAllAdmins);
 router.post("/", AdminController.createAnAdmin);

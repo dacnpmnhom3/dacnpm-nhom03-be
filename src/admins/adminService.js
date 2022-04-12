@@ -1,6 +1,7 @@
 import Admin from "./adminModel";
 import BaseSevice from "../../base/BaseService";
 import autoBind from "auto-bind";
+import Product from "../product/productModel";
 
 class AdminService extends BaseSevice {
   constructor() {
@@ -53,6 +54,20 @@ class AdminService extends BaseSevice {
       return foundUser;
     } catch (error) {
       console.error(error);
+    }
+  }
+  async getPendingProducts() {
+    try {
+      const productList = await Product.findAll({
+        where: { isVerified: false },
+      });
+      return productList;
+    } catch (error) {
+      console.error(error);
+      return {
+        error:
+          error.message || "Some error occurred while getting admins list!",
+      };
     }
   }
 }
