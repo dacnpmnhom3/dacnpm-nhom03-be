@@ -114,6 +114,16 @@ class ProductService extends BaseSevice {
       throw error;
     }
   }
+  async getAllProducts(user) {
+    try {
+      const allProducts = await this.model.findAll({
+        where: { ownerId: user.id },
+      });
+      return allProducts;
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }
 
 export default ProductService;

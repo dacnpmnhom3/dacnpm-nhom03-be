@@ -1,6 +1,4 @@
 import multer from "multer";
-import SaveHelper from "./FileSaveHelper";
-const saver = new SaveHelper();
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

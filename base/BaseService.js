@@ -14,12 +14,13 @@ class BaseService {
       const { orderBy } = _query;
       const page = getPage(_query.page);
       const size = getPageSize(_query.size);
-      console.log(page, size);
+      console.log(this.model);
       const items = await this.model.findAll({
         limit: size,
         offset: page * size,
         orderBy: orderBy,
       });
+
       return new HttpResponse(items, { totalCount: items.length });
     } catch (error) {
       console.error(error);
@@ -31,13 +32,15 @@ class BaseService {
     try {
       const item = await this.model.findOne({
         where: { id: id },
+        raw: true,
       });
+
       if (!item) {
         const error = new Error("Item not found");
         error.statusCode = 404;
         throw error;
       }
-      return new HttpResponse(item[0]);
+      return new HttpResponse(item);
     } catch (error) {
       console.error(error);
       throw error;
@@ -58,8 +61,12 @@ class BaseService {
 
   async update(id, data) {
     try {
-      const item = await this.model.update(data, {
-        where: { id },
+      await this.model.update(data, {
+        where: { id: id },
+      });
+      const item = await this.model.findOne({
+        where: { id: id },
+        raw: true,
       });
 
       return new HttpResponse(item);

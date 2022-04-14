@@ -2,11 +2,10 @@ import AdminService from "./adminService";
 import BaseController from "../../base/BaseController";
 import autoBind from "auto-bind";
 
-import { registerValidate } from "./adminValidate";
+import * as adminValidator from "./adminValidate";
 
-import { validPassword, hashPassword, makeCode } from "../../helper/Utility";
-import jwt from "jsonwebtoken";
-import HttpResponse from "../../helper/HttpResponse";
+import { validPassword, hashPassword } from "../../helper/Utility";
+import { createJWT } from "../auth/auth.services";
 
 const adminService = new AdminService();
 
@@ -15,119 +14,146 @@ class AdminController extends BaseController {
     super(adminService);
     autoBind(this);
   }
-
-  async register(req, res, next) {
+  async handleLogin(req, res) {
     try {
-      //Validate Registers
-      let data = req.body;
-      const validated = registerValidate(data);
-      if (validated.error != null)
+      const data = req.body;
+      const user = await this.service.findOneByEmail(data.email);
+      if (!user) {
         return res.status(400).json({
-          error: true,
-          message: validated.error.details[0].message,
-        });
-
-      //Check Confirm Password
-      if (data.password != data.confirmPassword) {
-        return res.status(400).json({
-          error: true,
-          message: "Confirm password is incorrect.",
+          success: false,
+          message: "The email you entered is not registered.",
         });
       }
-
-      //Check Email Exist
-      const checkEmailResult = await this.service.findOneByEmail(data.email);
-      if (checkEmailResult != null) {
+      //Check Password
+      const isValid = await validPassword(data.password, user.password);
+      if (!isValid) {
         return res.status(400).json({
-          error: true,
-          message: "Email has already registered",
+          success: false,
+          message: "The password you entered is not correct",
         });
       }
-      //HashPassword
-      const password = data.password;
-      data.password = await hashPassword(password);
-
-      //Create key and Send Mail
-      // data.code = makeCode(26);
-
-      //Register new Admin
-      const result = await this.service.registerAdmin(data);
+      //JWT
+      const token = createJWT({ id: user.id });
+      const returnObject = {
+        success: true,
+        user: {
+          id: user.id,
+          fullName: user.fullName,
+          email: user.email,
+        },
+        token: token,
+        expiresIn: 10000000,
+      };
+      res.json(returnObject);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async getAllAdmins(req, res) {
+    try {
+      const result = await this.service.getAllAdmins();
       if (result.error) {
         res.status(500).send({
           message: result.error,
         });
         return;
       }
-
-      return res.status(200).json({
-        error: false,
-        message: result,
-      });
-    } catch (e) {
-      next(e);
+      res.send(result);
+    } catch (error) {
+      res.status(error.status || 501).json({ message: error.message });
     }
   }
+  async createAnAdmin(req, res) {
+    let data = req.body;
+    const validated = adminValidator.validateCreateAdmin(data);
+    if (validated.error != null)
+      return res.status(400).send(validated.error.details[0].message);
 
-  async login(req, res, next) {
-    try {
-      const data = req.body;
-      //console.log(req.body);
-      //Find Admin In DB
-      const admin = await this.service.findOneByEmail(data.email);
-      // console.log(admin);
-      if (!admin) {
-        return res.status(400).json({
-          error: true,
-          message: "The email you entered is not registered.",
-        });
-      }
-      //Check Register type
-      if (admin.registerType == "socialLinked") {
-        return res.status(400).json({
-          error: true,
-          message: "Please login with your social account.",
-        });
-      }
-      //Check Password
-      // console.log("Password " + admin.password);
-      const isValid = await validPassword(data.password, admin.password);
-      if (!isValid) {
-        return res.status(400).json({
-          error: true,
-          message: "The password you entered is not correct",
-        });
-      }
-      //Check is verified, is lock
-      // const isVerified = admin.isVerify === true;
-      // if (!isVerified) {
-      //   return res.status(400).json({
-      //     error: true,
-      //     message: "Your email isn't verified. Please confirm your email.",
-      //   });
-      // }
-      // const isLocked = admin.isLock === true;
-      // if (isLocked) {
-      //   return res.status(400).json({
-      //     error: true,
-      //     message: "Your account is locked.",
-      //   });
-      // }
-      //JWT
-      const token = jwt.sign({ id: admin.id }, process.env.JWT_SECRET, {
-        expiresIn: 10000000,
+    //Check Email Exist
+    const checkEmailResult = await this.service.findOneByEmail(data.email);
+    if (checkEmailResult != null) {
+      return res.status(400).json({
+        success: false,
+        message: "Email has already registered",
       });
-      //res.header("auth-token", token).send(token);
+    }
+    //HashPassword
+    const password = data.password;
+    data.password = await hashPassword(password);
 
-      // const tokenObject = Util.issueJWT(admin);
-      return res.status(200).json(
-        new HttpResponse({
-          id: admin.id,
-          token: token,
-          expiresIn: 10000000,
-        })
-      );
+    //Create new admin
+    const result = await this.service.createAnAdmin(data);
+    if (result.error) {
+      res.status(500).send({
+        message: result.error,
+      });
+      return;
+    }
+    return res.status(200).json(result);
+  }
+  async getAnAdmin(req, res) {
+    try {
+      const result = await this.service.getAnAdmin(req.params.adminId);
+      if (result.error) {
+        res.status(500).send({
+          message: result.error,
+        });
+        return;
+      }
+      res.send(result);
     } catch (error) {
-      console.log(error);
+      res.status(error.status || 501).json({ message: error.message });
+    }
+  }
+  async updateAnAdmin(req, res) {
+    try {
+      //Validate admin
+      const validated = adminValidator.validateUpdateAdmin(req.body);
+      if (validated.error != null)
+        return res.status(400).send(validated.error.details[0].message);
+      // update admin
+      const result = await this.service.updateAnAdmin(
+        req.params.adminId,
+        req.body
+      );
+      if (result.error) {
+        res.status(500).send({
+          message: result.error,
+        });
+        return;
+      }
+      res.json(result);
+    } catch (error) {
+      res.status(error.status || 501).json({ message: error.message });
+    }
+  }
+  async getTotalReport(req, res) {
+    try {
+      //   const result = await adminService.getTotalReport();
+      const result = { admin: 0, user: 0, class: 0 };
+      if (result.error) {
+        res.status(500).send({
+          message: result.error,
+        });
+        return;
+      }
+      res.send(result);
+    } catch (error) {
+      res.status(error.status || 501).json({ message: error.message });
+    }
+  }
+  async getPendingProducts(req, res) {
+    try {
+      const result = await this.service.getPendingProducts();
+      if (result.error) {
+        res.status(500).send({
+          message: result.error,
+        });
+        return;
+      }
+      res.send(result);
+    } catch (error) {
+      res.status(error.status || 501).json({ message: error.message });
     }
   }
 }

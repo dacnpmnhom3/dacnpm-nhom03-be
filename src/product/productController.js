@@ -1,7 +1,9 @@
 import ProductService from "./productSevice";
 import BaseController from "../../base/BaseController";
-const productSevice = new ProductService();
 import autoBind from "auto-bind";
+
+const productSevice = new ProductService();
+
 class ProductController extends BaseController {
   constructor() {
     super(productSevice);
@@ -19,6 +21,26 @@ class ProductController extends BaseController {
                 schema: { "$ref": "#/definitions/tst" },
                 description: "TST successfully." } */
       return res.status(200).json(response);
+    } catch (e) {
+      next(e);
+    }
+  }
+  async getAll(req, res, next) {
+    try {
+      const result = await this.service.getAllProducts(req.user);
+
+      return res.status(200).json(result);
+    } catch (e) {
+      next(e);
+    }
+  }
+  async insert(req, res, next) {
+    try {
+      const data = { ...req.body };
+      data.ownerId = req.user.id;
+      const response = await this.service.insert(data);
+
+      return res.status(response.statusCode).json(response);
     } catch (e) {
       next(e);
     }

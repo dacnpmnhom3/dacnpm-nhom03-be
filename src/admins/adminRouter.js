@@ -1,14 +1,24 @@
 import express from "express";
+import { customAuthenticateByJwt } from "../auth/auth.services";
 const router = express.Router();
 import AdminController from "./adminController";
-// import { authenticateByJwt } from "../auth/auth.services";
 
-router.post("/register", AdminController.register);
-router.post("/login", AdminController.login)
+router.post("/login", AdminController.handleLogin);
 
-// router.get("/", AdminController.getAll);
-// router.get("/:id", AdminController.get);
-// router.put("/:id", AdminController.update);
-// router.delete("/:id", AdminController.delete);
+router.get(
+  "/total-report",
+  customAuthenticateByJwt,
+  AdminController.getTotalReport
+);
+router.get(
+  "/pending-products",
+  customAuthenticateByJwt,
+  AdminController.getPendingProducts
+);
+//admin API
+router.get("/", customAuthenticateByJwt, AdminController.getAllAdmins);
+router.post("/", AdminController.createAnAdmin);
+router.get("/:adminId", customAuthenticateByJwt, AdminController.getAnAdmin);
+router.put("/:adminId", customAuthenticateByJwt, AdminController.updateAnAdmin);
 
 export default router;
