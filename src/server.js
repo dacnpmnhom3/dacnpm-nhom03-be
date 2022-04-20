@@ -3,9 +3,6 @@ import express from "express";
 import "dotenv/config";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
-import authRouter from "./auth/auth.router";
-import userRouter from "./user/userRouter";
-import adminRouter from "./admins/adminRouter";
 
 import passport from "passport";
 import configPassport from "../config/passport";
@@ -14,14 +11,10 @@ configPassport(passport);
 // routes
 import routes from "./routes/main.routes";
 import productRouter from "./product/productRouter";
-import authRouter from "./auth/auth.router";
+import authRouter from "./auth/auth.router.js";
 import userRouter from "./users/userRouter";
 import adminRouter from "./admins/adminRouter";
 import sellerRouter from "./seller/sellerRouter";
-
-import passport from "passport";
-import configPassport from "../config/passport";
-configPassport(passport);
 
 //DB config
 import db from "../config/db.config";
