@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
-import UserController from "./userController";
-import { authenticateByJwt } from "../auth/auth.services";
+import UserController from "./userController.js";
+import { authenticateByJwt } from "../auth/auth.services.js";
 
 router.post("/register", UserController.register);
 router.post("/login", UserController.login)

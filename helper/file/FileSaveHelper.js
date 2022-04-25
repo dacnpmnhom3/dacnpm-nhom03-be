@@ -1,5 +1,5 @@
 import cloudinary from "cloudinary";
-import config from "./CloudinaryConfig";
+import config from "./CloudinaryConfig.js";
 
 class SaveHelper {
   constructor() {

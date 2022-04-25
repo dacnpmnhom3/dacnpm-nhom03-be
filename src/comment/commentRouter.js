@@ -1,10 +1,9 @@
 import express from "express";
 const router = express.Router();
-import CommentController from "./commentController";
-import { authenticateByJwt } from "../auth/auth.services";
+import commentController from "./commentController.js";
+import { authenticateByJwt } from "../auth/auth.services.js";
 
-router.get("/", CommentController.getAll);
-router.get("/test", ProductController.test);
-router.post("/", authenticateByJwt, CommentController.insert);
+router.get("/:productId", commentController.getAll);
+router.post("/", authenticateByJwt ,commentController.insert);
 
 export default router;

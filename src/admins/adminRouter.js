@@ -1,7 +1,7 @@
 import express from "express";
-import { customAuthenticateByJwt } from "../auth/auth.services";
+import { customAuthenticateByJwt } from "../auth/auth.services.js";
 const router = express.Router();
-import AdminController from "./adminController";
+import AdminController from "./adminController.js";
 
 router.post("/login", AdminController.handleLogin);
 

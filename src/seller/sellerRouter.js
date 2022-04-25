@@ -1,7 +1,7 @@
 import express from "express";
-import upload from "../../helper/file/FileUpload";
-import sellerController from "./sellerController";
-import SellerValidation from "./sellerValidate";
+import upload from "../../helper/file/FileUpload.js";
+import sellerController from "./sellerController.js";
+import SellerValidation from "./sellerValidate.js";
 const router = express.Router();
 
 router.post("/login", sellerController.handleLogin);

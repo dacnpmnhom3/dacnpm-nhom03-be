@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
 import passport from "passport";
-import { createJWT, authenticateByJwt } from "./auth.services";
+import { createJWT, authenticateByJwt } from "./auth.services.js";
 
 const responseAfterAuthorizing = (req, res, next) => {
   const token = createJWT({ id: req.user.id });

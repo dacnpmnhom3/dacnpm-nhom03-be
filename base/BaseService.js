@@ -1,6 +1,6 @@
-import HttpResponse from "../helper/HttpResponse";
+import HttpResponse from "../helper/HttpResponse.js";
 
-import { getPage, getPageSize } from "../utils/Pagination";
+import { getPage, getPageSize } from "../utils/Pagination.js";
 import autoBind from "auto-bind";
 
 class BaseService {

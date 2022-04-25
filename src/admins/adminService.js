@@ -1,7 +1,7 @@
-import Admin from "./adminModel";
-import BaseSevice from "../../base/BaseService";
+import Admin from "./adminModel.js";
+import BaseSevice from "../../base/BaseService.js";
 import autoBind from "auto-bind";
-import Product from "../product/productModel";
+import Product from "../product/productModel.js";
 
 class AdminService extends BaseSevice {
   constructor() {

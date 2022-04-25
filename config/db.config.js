@@ -1,4 +1,4 @@
-import dbConfig from "./db.data";
+import dbConfig from "./db.data.js";
 import { Sequelize } from "sequelize";
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {

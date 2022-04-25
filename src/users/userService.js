@@ -1,5 +1,5 @@
-import User from "./userModel";
-import BaseSevice from "../../base/BaseService";
+import User from "./userModel.js";
+import BaseSevice from "../../base/BaseService.js";
 import autoBind from "auto-bind";
 
 class UserService extends BaseSevice {

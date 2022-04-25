@@ -1,11 +1,11 @@
-import AdminService from "./adminService";
-import BaseController from "../../base/BaseController";
+import AdminService from "./adminService.js";
+import BaseController from "../../base/BaseController.js";
 import autoBind from "auto-bind";
 
-import * as adminValidator from "./adminValidate";
+import * as adminValidator from "./adminValidate.js";
 
-import { validPassword, hashPassword } from "../../helper/Utility";
-import { createJWT } from "../auth/auth.services";
+import { validPassword, hashPassword } from "../../helper/Utility.js";
+import { createJWT } from "../auth/auth.services.js";
 
 const adminService = new AdminService();
 

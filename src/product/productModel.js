@@ -2,7 +2,7 @@
 // const sequelize = require("../../config/db.config");
 
 import { Model, DataTypes } from "sequelize";
-import sequelize from "../../config/db.config";
+import sequelize from "../../config/db.config.js";
 
 class Product extends Model {}
 Product.init(

@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
-import ProductController from "./productController";
-import { authenticateByJwt } from "../auth/auth.services";
+import ProductController from "./productController.js";
+import { authenticateByJwt } from "../auth/auth.services.js";
 
 router.get("/", authenticateByJwt, ProductController.getAll);
 router.get("/test", authenticateByJwt, ProductController.test);

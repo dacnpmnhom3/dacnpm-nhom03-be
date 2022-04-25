@@ -1,7 +1,7 @@
-import BaseSevice from "../../base/BaseService";
+import BaseSevice from "../../base/BaseService.js";
 import autoBind from "auto-bind";
-import HttpResponse from "../../helper/HttpResponse";
-import Seller from "./sellerModel";
+import HttpResponse from "../../helper/HttpResponse.js";
+import Seller from "./sellerModel.js";
 
 class SellerService extends BaseSevice {
   constructor() {

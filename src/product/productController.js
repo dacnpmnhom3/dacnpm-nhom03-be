@@ -1,5 +1,5 @@
-import ProductService from "./productSevice";
-import BaseController from "../../base/BaseController";
+import ProductService from "./productSevice.js";
+import BaseController from "../../base/BaseController.js";
 import autoBind from "auto-bind";
 
 const productSevice = new ProductService();

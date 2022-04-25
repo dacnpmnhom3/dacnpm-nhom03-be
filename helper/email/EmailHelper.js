@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import MailTemplate from "./MailTemplate";
+import MailTemplate from "./MailTemplate.js";
 
 class MailerHepler {
   constructor() {

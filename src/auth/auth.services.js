@@ -1,6 +1,6 @@
 import passport from "passport";
 import jwt from "jsonwebtoken";
-import AdminService from "../admins/adminService";
+import AdminService from "../admins/adminService.js";
 
 export const authenticateByJwt = passport.authenticate("jwt", {
   session: false,

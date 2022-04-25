@@ -1,10 +1,10 @@
-import BaseController from "../../base/BaseController";
+import BaseController from "../../base/BaseController.js";
 import autoBind from "auto-bind";
-import SellerService from "./sellerService";
-import EmailHelper from "../../helper/email/EmailHelper";
-import SaveHelper from "../../helper/file/FileSaveHelper";
-import { validPassword, hashPassword } from "../../helper/Utility";
-import { createJWT } from "../auth/auth.services";
+import SellerService from "./sellerService.js";
+import EmailHelper from "../../helper/email/EmailHelper.js";
+import SaveHelper from "../../helper/file/FileSaveHelper.js";
+import { validPassword, hashPassword } from "../../helper/Utility.js";
+import { createJWT } from "../auth/auth.services.js";
 
 const mailer = new EmailHelper();
 const saver = new SaveHelper();

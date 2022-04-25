@@ -1,12 +1,12 @@
-import UserService from "./userService";
-import BaseController from "../../base/BaseController";
+import UserService from "./userService.js";
+import BaseController from "../../base/BaseController.js";
 import autoBind from "auto-bind";
 
-import { registerValidate } from "./userValidate";
+import { registerValidate } from "./userValidate.js";
 
-import { validPassword, hashPassword, makeCode } from "../../helper/Utility";
+import { validPassword, hashPassword, makeCode } from "../../helper/Utility.js";
 import jwt from "jsonwebtoken";
-import HttpResponse from "../../helper/HttpResponse";
+import HttpResponse from "../../helper/HttpResponse.js";
 
 const userService = new UserService();
 
