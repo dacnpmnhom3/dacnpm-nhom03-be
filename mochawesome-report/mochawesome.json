@@ -5,9 +5,9 @@
     "passes": 0,
     "pending": 0,
     "failures": 6,
-    "start": "2022-04-25T13:31:18.055Z",
-    "end": "2022-04-25T13:31:18.217Z",
-    "duration": 162,
+    "start": "2022-04-28T09:36:11.946Z",
+    "end": "2022-04-28T09:36:12.096Z",
+    "duration": 150,
     "testsRegistered": 6,
     "passPercent": 0,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "6385cfdd-1cf1-451b-9657-95ba018eed23",
+      "uuid": "2e21d156-b26a-4eaf-9159-4d43bc530927",
       "title": "",
       "fullFile": "C:\\Users\\sondn\\OneDrive\\Desktop\\DACNPM - BE - sondn\\backend\\dacnpm-nhom03-be\\test\\product.test.js",
       "file": "\\test\\product.test.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "e2786d07-7315-44d5-88ed-6019628c7262",
+          "uuid": "1ec704cf-2dcd-4d9a-87f0-473621b2dcdd",
           "title": "product route",
           "fullFile": "C:\\Users\\sondn\\OneDrive\\Desktop\\DACNPM - BE - sondn\\backend\\dacnpm-nhom03-be\\test\\product.test.js",
           "file": "\\test\\product.test.js",
@@ -45,8 +45,8 @@
               "context": null,
               "code": "done();",
               "err": {},
-              "uuid": "e5385588-dc61-416f-82de-a8985b2329c0",
-              "parentUUID": "e2786d07-7315-44d5-88ed-6019628c7262",
+              "uuid": "7339f926-6a53-45d6-a1e9-edc19529ccd4",
+              "parentUUID": "1ec704cf-2dcd-4d9a-87f0-473621b2dcdd",
               "isHook": true,
               "skipped": false
             }
@@ -65,8 +65,8 @@
               "context": null,
               "code": "done();",
               "err": {},
-              "uuid": "2cf2d09c-029c-4fa5-8359-059b6ef39480",
-              "parentUUID": "e2786d07-7315-44d5-88ed-6019628c7262",
+              "uuid": "9a637fc1-293c-4fe9-9614-e9418d35c813",
+              "parentUUID": "1ec704cf-2dcd-4d9a-87f0-473621b2dcdd",
               "isHook": true,
               "skipped": false
             }
@@ -76,7 +76,7 @@
               "title": "it should correct when get all product ",
               "fullTitle": "product route it should correct when get all product ",
               "timedOut": false,
-              "duration": 28,
+              "duration": 27,
               "state": "failed",
               "speed": null,
               "pass": false,
@@ -89,8 +89,8 @@
                 "estack": "AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 401\n    at file:///C:/Users/sondn/OneDrive/Desktop/DACNPM%20-%20BE%20-%20sondn/backend/dacnpm-nhom03-be/test/product.test.js:18:25\n    at Test.Request.callback (node_modules\\superagent\\lib\\node\\index.js:716:12)\n    at IncomingMessage.<anonymous> (node_modules\\superagent\\lib\\node\\index.js:916:18)\n    at IncomingMessage.emit (node:events:402:35)\n    at endReadableNT (node:internal/streams/readable:1343:12)\n    at processTicksAndRejections (node:internal/process/task_queues:83:21)",
                 "diff": "- 401\n+ 200\n"
               },
-              "uuid": "29e5d61b-7726-4fac-b819-fb0a72c7afc7",
-              "parentUUID": "e2786d07-7315-44d5-88ed-6019628c7262",
+              "uuid": "457d1f43-6c60-4a68-8f52-c918283bbb95",
+              "parentUUID": "1ec704cf-2dcd-4d9a-87f0-473621b2dcdd",
               "isHook": false,
               "skipped": false
             },
@@ -98,7 +98,7 @@
               "title": "it should correct when get product by id",
               "fullTitle": "product route it should correct when get product by id",
               "timedOut": false,
-              "duration": 7,
+              "duration": 9,
               "state": "failed",
               "speed": null,
               "pass": false,
@@ -111,8 +111,8 @@
                 "estack": "AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 401\n    at file:///C:/Users/sondn/OneDrive/Desktop/DACNPM%20-%20BE%20-%20sondn/backend/dacnpm-nhom03-be/test/product.test.js:29:25\n    at Test.Request.callback (node_modules\\superagent\\lib\\node\\index.js:716:12)\n    at IncomingMessage.<anonymous> (node_modules\\superagent\\lib\\node\\index.js:916:18)\n    at IncomingMessage.emit (node:events:402:35)\n    at endReadableNT (node:internal/streams/readable:1343:12)\n    at processTicksAndRejections (node:internal/process/task_queues:83:21)",
                 "diff": "- 401\n+ 200\n"
               },
-              "uuid": "8046d41a-3399-454b-8b9f-781f01387dbe",
-              "parentUUID": "e2786d07-7315-44d5-88ed-6019628c7262",
+              "uuid": "324be17e-2ddf-4205-ab11-0dd3699e4f8c",
+              "parentUUID": "1ec704cf-2dcd-4d9a-87f0-473621b2dcdd",
               "isHook": false,
               "skipped": false
             },
@@ -120,7 +120,7 @@
               "title": "it should correct when insert product",
               "fullTitle": "product route it should correct when insert product",
               "timedOut": false,
-              "duration": 27,
+              "duration": 18,
               "state": "failed",
               "speed": null,
               "pass": false,
@@ -133,8 +133,8 @@
                 "estack": "AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 201 but got 401\n    at file:///C:/Users/sondn/OneDrive/Desktop/DACNPM%20-%20BE%20-%20sondn/backend/dacnpm-nhom03-be/test/product.test.js:45:25\n    at Test.Request.callback (node_modules\\superagent\\lib\\node\\index.js:716:12)\n    at IncomingMessage.<anonymous> (node_modules\\superagent\\lib\\node\\index.js:916:18)\n    at IncomingMessage.emit (node:events:402:35)\n    at endReadableNT (node:internal/streams/readable:1343:12)\n    at processTicksAndRejections (node:internal/process/task_queues:83:21)",
                 "diff": "- 401\n+ 201\n"
               },
-              "uuid": "e0ef25cc-e995-4982-afad-cf842df09059",
-              "parentUUID": "e2786d07-7315-44d5-88ed-6019628c7262",
+              "uuid": "976993a7-04b3-4792-891d-cc8749f64832",
+              "parentUUID": "1ec704cf-2dcd-4d9a-87f0-473621b2dcdd",
               "isHook": false,
               "skipped": false
             },
@@ -142,7 +142,7 @@
               "title": "it should correct when update product",
               "fullTitle": "product route it should correct when update product",
               "timedOut": false,
-              "duration": 14,
+              "duration": 9,
               "state": "failed",
               "speed": null,
               "pass": false,
@@ -155,8 +155,8 @@
                 "estack": "AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 401\n    at file:///C:/Users/sondn/OneDrive/Desktop/DACNPM%20-%20BE%20-%20sondn/backend/dacnpm-nhom03-be/test/product.test.js:61:25\n    at Test.Request.callback (node_modules\\superagent\\lib\\node\\index.js:716:12)\n    at IncomingMessage.<anonymous> (node_modules\\superagent\\lib\\node\\index.js:916:18)\n    at IncomingMessage.emit (node:events:402:35)\n    at endReadableNT (node:internal/streams/readable:1343:12)\n    at processTicksAndRejections (node:internal/process/task_queues:83:21)",
                 "diff": "- 401\n+ 200\n"
               },
-              "uuid": "619a09d7-9432-4afc-938b-31a8898c581a",
-              "parentUUID": "e2786d07-7315-44d5-88ed-6019628c7262",
+              "uuid": "653a1653-2f8f-49db-a952-74da9be554b6",
+              "parentUUID": "1ec704cf-2dcd-4d9a-87f0-473621b2dcdd",
               "isHook": false,
               "skipped": false
             },
@@ -164,7 +164,7 @@
               "title": "it should correct when delete product",
               "fullTitle": "product route it should correct when delete product",
               "timedOut": false,
-              "duration": 27,
+              "duration": 31,
               "state": "failed",
               "speed": null,
               "pass": false,
@@ -177,8 +177,8 @@
                 "estack": "AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404\n    at file:///C:/Users/sondn/OneDrive/Desktop/DACNPM%20-%20BE%20-%20sondn/backend/dacnpm-nhom03-be/test/product.test.js:74:25\n    at Test.Request.callback (node_modules\\superagent\\lib\\node\\index.js:716:12)\n    at IncomingMessage.<anonymous> (node_modules\\superagent\\lib\\node\\index.js:916:18)\n    at IncomingMessage.emit (node:events:402:35)\n    at endReadableNT (node:internal/streams/readable:1343:12)\n    at processTicksAndRejections (node:internal/process/task_queues:83:21)",
                 "diff": "- 404\n+ 200\n"
               },
-              "uuid": "73125be0-00f7-4fe2-b823-c3117f30b9d3",
-              "parentUUID": "e2786d07-7315-44d5-88ed-6019628c7262",
+              "uuid": "ec269e52-44b5-4660-8898-3bc10dc18a5d",
+              "parentUUID": "1ec704cf-2dcd-4d9a-87f0-473621b2dcdd",
               "isHook": false,
               "skipped": false
             },
@@ -186,7 +186,7 @@
               "title": "it should correct when hard delete product",
               "fullTitle": "product route it should correct when hard delete product",
               "timedOut": false,
-              "duration": 14,
+              "duration": 11,
               "state": "failed",
               "speed": null,
               "pass": false,
@@ -199,8 +199,8 @@
                 "estack": "AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404\n    at file:///C:/Users/sondn/OneDrive/Desktop/DACNPM%20-%20BE%20-%20sondn/backend/dacnpm-nhom03-be/test/product.test.js:87:25\n    at Test.Request.callback (node_modules\\superagent\\lib\\node\\index.js:716:12)\n    at IncomingMessage.<anonymous> (node_modules\\superagent\\lib\\node\\index.js:916:18)\n    at IncomingMessage.emit (node:events:402:35)\n    at endReadableNT (node:internal/streams/readable:1343:12)\n    at processTicksAndRejections (node:internal/process/task_queues:83:21)",
                 "diff": "- 404\n+ 200\n"
               },
-              "uuid": "3eeaadcc-53f9-4ce2-b1a7-29a51ce9fc41",
-              "parentUUID": "e2786d07-7315-44d5-88ed-6019628c7262",
+              "uuid": "ad45b537-7246-4676-b7fc-3968d8055ba3",
+              "parentUUID": "1ec704cf-2dcd-4d9a-87f0-473621b2dcdd",
               "isHook": false,
               "skipped": false
             }
@@ -208,16 +208,16 @@
           "suites": [],
           "passes": [],
           "failures": [
-            "29e5d61b-7726-4fac-b819-fb0a72c7afc7",
-            "8046d41a-3399-454b-8b9f-781f01387dbe",
-            "e0ef25cc-e995-4982-afad-cf842df09059",
-            "619a09d7-9432-4afc-938b-31a8898c581a",
-            "73125be0-00f7-4fe2-b823-c3117f30b9d3",
-            "3eeaadcc-53f9-4ce2-b1a7-29a51ce9fc41"
+            "457d1f43-6c60-4a68-8f52-c918283bbb95",
+            "324be17e-2ddf-4205-ab11-0dd3699e4f8c",
+            "976993a7-04b3-4792-891d-cc8749f64832",
+            "653a1653-2f8f-49db-a952-74da9be554b6",
+            "ec269e52-44b5-4660-8898-3bc10dc18a5d",
+            "ad45b537-7246-4676-b7fc-3968d8055ba3"
           ],
           "pending": [],
           "skipped": [],
-          "duration": 117,
+          "duration": 105,
           "root": false,
           "rootEmpty": false,
           "_timeout": 10000
