@@ -1,10 +1,10 @@
 import { Model, DataTypes } from "sequelize";
 import sequelize from "../../config/db.config";
 
-class User extends Model {}
-User.init(
+class Admin extends Model {}
+Admin.init(
   {
-    name: {
+    fullName: {
       type: DataTypes.STRING,
       defaultValue: "",
     },
@@ -13,6 +13,10 @@ User.init(
       defaultValue: "",
     },
     password: {
+      type: DataTypes.STRING(255),
+      defaultValue: "",
+    },
+    address: {
       type: DataTypes.STRING,
       defaultValue: "",
     },
@@ -23,9 +27,8 @@ User.init(
   },
   {
     sequelize,
-    modelName: "User",
-    paranoid: true,
+    modelName: "admin",
   }
 );
 
-export default User;
+export default Admin;

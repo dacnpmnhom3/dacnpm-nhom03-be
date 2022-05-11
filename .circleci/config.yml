@@ -1,0 +1,37 @@
+version: 2.1
+on:
+  push:
+    branches: [main]
+  pull_request:
+    type: [opened, reopened, synchronize]
+  workflow_dispatch:
+
+jobs:
+  build:
+    working_directory: ~/repo
+    docker:
+      - image: cimg/node:10.16.3
+    steps:
+      - checkout
+      - run:
+          name: update npm
+          command: "npm install -g npm@5"
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run:
+          name: install dependencies
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: run test
+          command: npm test
+      - store_artifacts:
+          path: ~/repo/space
+
+workflows:
+  build_test:
+    jobs:
+      - build
