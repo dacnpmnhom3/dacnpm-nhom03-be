@@ -1,9 +1,15 @@
 // const { Model, DataTypes } = require("sequelize");
 // const sequelize = require("../../config/db.config");
 
-import { Model, DataTypes } from "sequelize";
-import sequelize from "../../config/db.config.js";
+//--------------------------------------------
+//- Phần này làm việc với mySQL để tạo model -
+//--------------------------------------------
 
+
+// import { Model, DataTypes } from "sequelize";
+// import sequelize from "../../config/db.config.js";
+
+/*
 class Product extends Model {}
 Product.init(
   {
@@ -32,5 +38,26 @@ Product.init(
     paranoid: true,
   }
 );
+*/
+
+
+// phần này làm việc với monodb
+import mongoose from "mongoose";
+
+
+// thêm các thuộc tính trong schema này theo colection trong mongodb nếu trong quá trình phát triển phát sinh thêm thuộc tính mới 
+const productSchema = new mongoose.Schema(
+  {
+    name: { type: String, required: true },
+    short_description: { type: String, unique: true, required: true },
+    long_description: { type: String },
+    price: { type: String },
+    thumbnail: { type: String },
+    properties: { type: Object }
+  },
+  { timestamps: true }
+);
+
+const Product = mongoose.model("Products", productSchema);
 
 export default Product;
