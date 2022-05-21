@@ -42,7 +42,7 @@ Product.init(
 
 
 // phần này làm việc với monodb
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 
 // thêm các thuộc tính trong schema này theo colection trong mongodb nếu trong quá trình phát triển phát sinh thêm thuộc tính mới 
@@ -52,8 +52,14 @@ const productSchema = new mongoose.Schema(
     short_description: { type: String, unique: true, required: true },
     long_description: { type: String },
     price: { type: String },
-    thumbnail: { type: String },
-    properties: { type: Object }
+    thumbnail: { type: Array },
+    properties: { type: Array },
+    variations: { type: Array },
+    category: { type: Schema.Types.ObjectId, ref: "categories" },
+    storeId: { type: Schema.Types.ObjectId, ref: "stores" },
+    isPublished: { type: Boolean, default: false },
+    isVerified: { type: Boolean, default: false },
+
   },
   { timestamps: true }
 );
