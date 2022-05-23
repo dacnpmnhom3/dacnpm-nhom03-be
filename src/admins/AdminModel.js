@@ -1,28 +1,27 @@
 import { Model, DataTypes } from "sequelize";
-import sequelize from "../../config/db.config";
+import sequelize from "../../config/db.config.js";
 
 class Admin extends Model {}
 Admin.init(
   {
     fullName: {
       type: DataTypes.STRING,
-      defaultValue: "",
+      allowNull: false,
     },
     email: {
       type: DataTypes.STRING,
-      defaultValue: "",
+      unique: true,
+      allowNull: false,
     },
     password: {
-      type: DataTypes.STRING(255),
-      defaultValue: "",
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     address: {
       type: DataTypes.STRING,
-      defaultValue: "",
     },
     phone: {
       type: DataTypes.STRING,
-      defaultValue: "",
     },
   },
   {
@@ -30,5 +29,7 @@ Admin.init(
     modelName: "admin",
   }
 );
+
+
 
 export default Admin;
