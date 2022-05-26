@@ -1,6 +1,7 @@
-import ProductService from "../../domain/Product/ProductService.js";
+// import ProductService from "../../domain/Product/ProductService.js";
 import BaseController from "../../../base/BaseController.js";
 import autoBind from "auto-bind";
+import ProductService from "../../domain/Product/ProductService.js";
 
 const productSevice = new ProductService();
 

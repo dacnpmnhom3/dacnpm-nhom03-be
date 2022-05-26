@@ -1,7 +1,12 @@
 import express from "express";
 const router = express.Router();
 import ProductController from "./productController.js";
-import { authenticateByJwt } from "../auth/auth.services.js";
+// import { authenticateByJwt } from "../auth/auth.services.js";
+
+// this is just dummy auth function 
+const authenticateByJwt = (req, res, next) => {
+    next();
+}
 
 router.get("/", authenticateByJwt, ProductController.getAll);
 router.get("/test", authenticateByJwt, ProductController.test);

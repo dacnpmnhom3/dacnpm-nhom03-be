@@ -10,7 +10,7 @@ import cors from "cors";
 // routes
 import routes from "../routes/main.routes";
 import orderRouter from "./OrderBC/OrderRouter";
-
+import productRouter from "./Product/ProductRouter";
 import connectDB from "../../config/MongoDBConfig";
 
 // // environment
@@ -46,6 +46,8 @@ app.use(passport.initialize());
 
 app.use("/", routes);
 app.use("/api/order", orderRouter);
+app.use("/api/product", productRouter);
+
 
 const port = process.env.PORT || 4000;
 
