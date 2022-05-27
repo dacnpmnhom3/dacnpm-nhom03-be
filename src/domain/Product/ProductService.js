@@ -1,7 +1,7 @@
-import Product from "./ProductDomainModel";
-import BaseSevice from "../../../base/BaseService";
+import Product from "./productDomainModel.js";
+import BaseSevice from "../../../base/BaseService.js";
 import autoBind from "auto-bind";
-import HttpResponse from "../../../helper/HttpResponse";
+import HttpResponse from "../../../helper/HttpResponse.js";
 
 class ProductService extends BaseSevice {
     constructor() {

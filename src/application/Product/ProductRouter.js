@@ -1,18 +1,13 @@
 import express from "express";
 const router = express.Router();
 import ProductController from "./productController.js";
-// import { authenticateByJwt } from "../auth/auth.services.js";
+//import  } from "../auth/auth.services.js";
 
-// this is just dummy auth function 
-const authenticateByJwt = (req, res, next) => {
-    next();
-}
-
-router.get("/", authenticateByJwt, ProductController.getAll);
-router.get("/test", authenticateByJwt, ProductController.test);
-router.get("/:id", authenticateByJwt, ProductController.get);
-router.post("/", authenticateByJwt, ProductController.insert);
-router.put("/:id", authenticateByJwt, ProductController.update);
+router.get("/", ProductController.getAll);
+router.get("/test", ProductController.test);
+router.get("/:id", ProductController.get);
+router.post("/", ProductController.insert);
+router.put("/:id", ProductController.update);
 router.delete("/:id", ProductController.delete);
 router.delete("/hard/:id", ProductController.hardDelete);
 

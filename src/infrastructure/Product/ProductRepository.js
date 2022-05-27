@@ -10,4 +10,4 @@ class ProductRepository extends BaseRepository {
     }
 }
 
-export default AdminRepository;
+export default ProductRepository;

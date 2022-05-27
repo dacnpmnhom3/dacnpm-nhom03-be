@@ -1,13 +1,12 @@
-// import ProductService from "../../domain/Product/ProductService.js";
+import ProductService from "../../domain/Product/ProductService";
 import BaseController from "../../../base/BaseController.js";
 import autoBind from "auto-bind";
-import ProductService from "../../domain/Product/ProductService.js";
 
-const productSevice = new ProductService();
+const productService = new ProductService();
 
 class ProductController extends BaseController {
     constructor() {
-        super(productSevice);
+        super(productService);
         autoBind(this);
     }
     async test(req, res, next) {
