@@ -4,7 +4,7 @@
 import joi from "@hapi/joi";
 
 
-import { Products } from "./productDomainModel";
+import Products from "./productDomainModel";
 
 const newProduct = (data) => {
     // we can validate data with joi object (read  joi doc to know more about joi validation)
@@ -37,3 +37,5 @@ const newProduct = (data) => {
 
     return newProduct;
 }
+
+export { newProduct };

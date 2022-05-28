@@ -4,9 +4,9 @@ import autoBind from "auto-bind";
 
 const productService = new ProductService();
 
-class ProductController extends BaseController {
+class ProductController {
     constructor() {
-        super(productService);
+        this.productService = productService;
         autoBind(this);
     }
     async test(req, res, next) {
@@ -27,9 +27,9 @@ class ProductController extends BaseController {
     }
     async getAll(req, res, next) {
         try {
-            const result = await this.service.getAllProducts(req.user);
+            const result = await productService.getAll();
 
-            return res.status(200).json(result);
+            return res.status(result.status).json(result);
         } catch (e) {
             next(e);
         }

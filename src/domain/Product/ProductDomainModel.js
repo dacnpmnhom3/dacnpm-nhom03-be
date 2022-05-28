@@ -2,7 +2,7 @@
 
 
 // trong quá trình phát triển có thể thêm thuộc tính mới vào đối tượng này
-export default class Product {
+export default class Products {
     constructor(name, price, short_description, long_description, thumbnail, properties, variations, category, storeId) {
         this.name = name;
         this.price = price;
