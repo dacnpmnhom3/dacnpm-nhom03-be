@@ -36,9 +36,33 @@ class ProductController {
     }
     async insert(req, res, next) {
         try {
-            const data = { ...req.body };
+            const data = req.body;
             data.ownerId = req.user.id;
-            const response = await this.service.insert(data);
+            const response = await productService.insert(data);
+
+            return res.status(response.statusCode).json(response);
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    async update(req, res, next) {
+        const id = req.params;
+
+        try {
+            const response = await productService.update(id, req.body);
+
+            return res.status(response.statusCode).json(response);
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    async delete(req, res, next) {
+        const id = req.params;
+
+        try {
+            const response = await productService.delete(id);
 
             return res.status(response.statusCode).json(response);
         } catch (e) {

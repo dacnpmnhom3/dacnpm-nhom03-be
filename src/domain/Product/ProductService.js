@@ -74,6 +74,65 @@ class ProductService extends BaseSevice {
         }
     }
 
+    async update(data) {
+        const response = {
+            status: "",
+            data: null,
+            message: "",
+        }
+        try {
+            const newProduct = newProduct(data);
+            if (newProduct.errMessage) {
+                response.status = 400;
+                response.data = null;
+                response.message = newProduct.errMessage;
+                return response;
+            }
+            const result = await productRepository.update(newProduct.info.id, newProduct.info);
+            if (result.isSuccess) {
+                response.status = 200;
+                response.data = result;
+                response.message = "Product updated successfully";
+                return response;
+            } else {
+                response.status = 500;
+                response.data = null;
+                response.message = result.message;
+                return response;
+            }
+
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
+    async delete(id) {
+        const response = {
+            status: "",
+            data: null,
+            message: "",
+        }
+        try {
+            const result = await productRepository.delete(id);
+            if (result.isSuccess) {
+                response.status = 200;
+                response.data = result;
+                response.message = "Product deleted successfully";
+                return response;
+            } else {
+                response.status = 500;
+                response.data = null;
+                response.message = result.message;
+                return response;
+            }
+
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
 }
 
 export default ProductService;
