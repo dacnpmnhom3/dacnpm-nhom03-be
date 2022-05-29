@@ -10,6 +10,7 @@ import cors from "cors";
 // routes
 import routes from "../routes/main.routes";
 import orderRouter from "./OrderBC/OrderRouter";
+import ProductRouter from "./Product/ProductRouter";
 
 import connectDB from "../../config/MongoDBConfig";
 
@@ -46,7 +47,7 @@ app.use(passport.initialize());
 
 app.use("/", routes);
 app.use("/api/order", orderRouter);
-
+app.use("/api/product", ProductRouter);
 const port = process.env.PORT || 4000;
 
 const server = app.listen(port, () => {
