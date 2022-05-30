@@ -1,9 +1,13 @@
 import autoBind from "auto-bind";
-import { Types } from "mongoose";
+import mongoose from "mongoose";
 
-import ProductModel from "./ProductModel";
+import ProductModel from "./product.model";
 import BaseRepository from "../../../../base/BaseRepository";
 import Category from "../Category/CategoryModel";
+// eslint-disable-next-line no-unused-vars
+import StoreModel from "../../StoreBC/Store/store.model";
+
+const { Types } = mongoose;
 
 class ProductRepository extends BaseRepository {
   constructor() {
@@ -41,7 +45,7 @@ class ProductRepository extends BaseRepository {
           },
         },
       ]).exec();
-      console.log(category);
+
       let concatenateCatagory = category[0].category_name;
       category[0].ancestor.forEach((element) => {
         concatenateCatagory = `${element} > ${concatenateCatagory}`;
@@ -66,6 +70,7 @@ class ProductRepository extends BaseRepository {
     try {
       const productList = await this.model
         .find({ status: "pending" })
+        .select({ variations: 0, properties: 0 })
         .sort({ createdAt: -1 })
         .populate([
           {

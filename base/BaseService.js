@@ -9,17 +9,17 @@ class BaseService {
   }
 
   async update(id, data) {
-    const result = this.repository.update(id, data);
+    const result = await this.repository.update(id, data);
     if (!result.isSuccess) return new HttpError(result.error);
 
     return new HttpResponse(result);
   }
 
   async get(id) {
-    const result = this.repository.get(id);
+    const result = await this.repository.get(id);
     if (!result.isSuccess) return new HttpError(result.error);
 
-    return new HttpResponse(result);
+    return new HttpResponse(result.data);
   }
 }
 
