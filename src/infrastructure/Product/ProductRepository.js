@@ -49,6 +49,17 @@ class ProductRepository extends BaseRepository {
             throw error;
         }
     }
+
+    async findById(id) {
+        try {
+
+            const result = await this.model.findById(id);
+            return result;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
 }
 
 export default ProductRepository;

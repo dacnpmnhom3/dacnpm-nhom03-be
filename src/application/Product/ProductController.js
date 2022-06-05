@@ -1,6 +1,7 @@
 import ProductService from "../../domain/Product/ProductService";
 import BaseController from "../../../base/BaseController.js";
 import autoBind from "auto-bind";
+import mongoose from "mongoose";
 
 const productService = new ProductService();
 
@@ -40,7 +41,7 @@ class ProductController {
             data.ownerId = req.user.id;
             const response = await productService.insert(data);
 
-            return res.status(response.statusCode).json(response);
+            return res.status(response.status).json(response);
         } catch (e) {
             next(e);
         }
@@ -52,7 +53,7 @@ class ProductController {
         try {
             const response = await productService.update(id, req.body);
 
-            return res.status(response.statusCode).json(response);
+            return res.status(response.status).json(response);
         } catch (e) {
             next(e);
         }
@@ -64,7 +65,19 @@ class ProductController {
         try {
             const response = await productService.delete(id);
 
-            return res.status(response.statusCode).json(response);
+            return res.status(response.status).json(response);
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    async findById(req, res, next) {
+        const { id } = req.params;
+
+        try {
+            const response = await productService.findById(id);
+
+            return res.status(response.status).json(response);
         } catch (e) {
             next(e);
         }

@@ -133,6 +133,36 @@ class ProductService extends BaseSevice {
         }
     }
 
+    // find product details by id
+    async findById(id) {
+        const response = {
+            status: "",
+            data: null,
+            message: "",
+        }
+        try {
+            const result = await productRepository.findById(id);
+            if (result) {
+                response.status = 200;
+                response.data = result;
+                response.message = "Product found successfully";
+                // CHÚ Ý NẾU ĐƯỢC TA TÌM THÔNG TIN CỦA CỬA HÀNG VÀ STORE OWNER LUÔN
+                return response;
+            } else {
+                response.status = 500;
+                response.data = null;
+                response.message = result.message;
+                return response;
+            }
+
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
+    // find products with filter object
+
 }
 
 export default ProductService;
