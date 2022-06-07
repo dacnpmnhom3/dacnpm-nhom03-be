@@ -3,7 +3,7 @@ import BaseSevice from "../../../base/BaseService.js";
 import autoBind from "auto-bind";
 import { newProduct } from "./productFactory.js";
 import ProductRepository from "../../infrastructure/Product/ProductRepository.js";
-
+import { getPage } from "../../../utils/Pagination.js";
 
 const productRepository = new ProductRepository();
 
@@ -162,6 +162,32 @@ class ProductService extends BaseSevice {
     }
 
     // find products with filter object
+    async findWithFilter(filter, reqPage) {
+        const response = {
+            status: "",
+            data: null,
+            message: "",
+        }
+        try {
+            const page = getPage(reqPage);
+            const result = await productRepository.findWithFilter(filter, page);
+            if (result) {
+                response.status = 200;
+                response.data = result;
+                response.message = "Product found successfully";
+                return response;
+            } else {
+                response.status = 500;
+                response.data = null;
+                response.message = result.message;
+                return response;
+            }
+
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
 
 }
 
