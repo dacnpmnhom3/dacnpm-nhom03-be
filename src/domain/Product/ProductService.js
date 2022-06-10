@@ -133,6 +133,31 @@ class ProductService extends BaseSevice {
         }
     }
 
+    async searchWithKeyWord(keyword) {
+        const response = {
+            status: "",
+            data: null,
+            message: "",
+        }
+        try {
+            const result = await productRepository.searchWithKeyWord(keyword);
+            if (result.length > 0) {
+                response.status = 200;
+                response.data = result;
+                return response;
+            } else {
+                response.status = 500;
+                response.data = null;
+                response.message = "No Product found";
+                return response;
+            }
+
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
 }
 
 export default ProductService;
