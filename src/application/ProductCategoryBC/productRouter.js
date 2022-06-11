@@ -1,5 +1,5 @@
 import express from "express";
-import ProductService from "../../domain/ProductCategoryBC/Product/product.service";
+import ProductService from "../../domain/ProductCategoryBC/Product/productService";
 
 const router = express.Router();
 

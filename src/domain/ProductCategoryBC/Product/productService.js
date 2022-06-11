@@ -3,7 +3,7 @@
 import autoBind from "auto-bind";
 
 import BaseService from "../../../../base/BaseService";
-import ProductRepository from "../../../infrastructure/ProductCategoryBC/Product/product.repository";
+import ProductRepository from "../../../infrastructure/ProductCategoryBC/Product/productRepository";
 import HttpError from "../../../utils/HttpError";
 import HttpResponse from "../../../utils/HttpResponse";
 
