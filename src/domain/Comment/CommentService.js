@@ -4,6 +4,8 @@ import autoBind from "auto-bind";
 import { comment } from "./CommentFactory";
 import commentRepository from "../../infrastructure/Comment/CommentRepository.js";
 
+
+
 class CommentService extends BaseService {
     constructor() {
         super(commentRepository);
@@ -116,6 +118,50 @@ class CommentService extends BaseService {
             throw error;
         }
     }
+
+    async findUserIDofComment(commentId) {
+        const result = await this.repository.findById(commentId);
+        if (result) {
+            return result.user_id;
+        }
+        return false;
+    }
+
+    // async findOwnerOfComment(id) {
+    //     const response = {
+    //         status: "",
+    //         data: null,
+    //         message: "",
+    //     }
+    //     try {
+    //         const allComments = await this.repository.findById(id);
+    //         if (allComments) {
+    //             // use grpc client to get user info
+    //             const user_id = {
+    //                 id: allComments.user_id
+    //             };
+    //             grpcClient.get(user_id, (error, admin) => {
+    //                 if (error) {
+    //                     console.log(error);
+    //                 } else {
+    //                     response.status = 200;
+    //                     response.data = admin;
+    //                     console.log(admin);
+    //                     response.message = "user info";
+    //                     return response;
+    //                 }
+    //             });
+    //         } else {
+    //             response.status = 500;
+    //             response.data = null;
+    //             response.message = "No Comment found";
+    //             return response;
+    //         }
+    //     } catch (error) {
+    //         console.error(error);
+    //         throw error;
+    //     }
+    // }
 }
 
 export default new CommentService();

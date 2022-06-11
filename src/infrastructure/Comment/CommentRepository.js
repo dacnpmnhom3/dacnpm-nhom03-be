@@ -19,6 +19,16 @@ class CommentRepository extends BaseRepository {
         }
     }
 
+    async findById(id) {
+        try {
+            const result = await this.model.findById(id);
+            return result;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
     async insert(data) {
         try {
             const result = await this.model.create(data);

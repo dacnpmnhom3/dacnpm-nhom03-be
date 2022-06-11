@@ -28,6 +28,8 @@ class CommentService extends BaseSevice {
       console.error(error);
     }
   }
+
+
 }
 
 export default CommentService;

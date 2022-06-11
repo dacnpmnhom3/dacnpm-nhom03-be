@@ -2,6 +2,8 @@ import CommentService from "../../domain/Comment/CommentService";
 import BaseController from "../../../base/BaseController.js";
 import autoBind from "auto-bind";
 import { getPage } from "../../../utils/pagination";
+import grpcClient from "../../../config/grpcClientConfig.js";
+
 class CommentController extends BaseController {
     constructor() {
         super(CommentService);
@@ -32,6 +34,34 @@ class CommentController extends BaseController {
         const { id } = req.params;
         const response = await this.service.findByUserId(id);
         return res.status(response.status).json(response);
+    }
+
+    async findOwnerInfoByCommentId(req, res) {
+        const { id } = req.params;
+        const userId = await this.service.findUserIDofComment(id);
+        if (!userId) {
+            return res.status(500).json({
+                status: 500,
+                data: null,
+                message: "No user found"
+            });
+        }
+        grpcClient.get({ id: userId }, (err, owner) => {
+            if (err) {
+                return res.status(500).json({
+                    status: 500,
+                    data: null,
+                    message: "Internal Server Error"
+                });
+            }
+            else {
+                return res.status(200).json({
+                    status: 200,
+                    data: owner,
+                    message: "Owner info found"
+                });
+            }
+        })
     }
 }
 
