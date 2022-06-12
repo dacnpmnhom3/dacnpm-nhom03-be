@@ -2,6 +2,7 @@
 import grpc from "@grpc/grpc-js";
 import protoLoader from "@grpc/proto-loader";
 const PROTO_PATH = "./config/adminGrpc.proto";
+const PROTO_PATH_USER = "./config/userGrpc.proto";
 
 const options = {
     keepCase: true,
@@ -12,12 +13,22 @@ const options = {
 };
 
 const packageDefinition = protoLoader.loadSync(PROTO_PATH, options);
+const userPacket = protoLoader.loadSync(PROTO_PATH_USER, options);
+
 
 const AdminService = grpc.loadPackageDefinition(packageDefinition).AdminService;
 
-const grpcClient = new AdminService(
+const UserService = grpc.loadPackageDefinition(userPacket).UserService;
+
+const grpcClientAdmin = new AdminService(
     "localhost:50051",
     grpc.credentials.createInsecure()
 );
 
-export default grpcClient;
+const grpcClientUser = new UserService(
+    "localhost:50051",
+    grpc.credentials.createInsecure()
+);
+
+
+export { grpcClientAdmin, grpcClientUser };

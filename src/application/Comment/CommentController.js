@@ -2,7 +2,7 @@ import CommentService from "../../domain/Comment/CommentService";
 import BaseController from "../../../base/BaseController.js";
 import autoBind from "auto-bind";
 import { getPage } from "../../../utils/pagination";
-import grpcClient from "../../../config/grpcClientConfig.js";
+import { grpcClientAdmin, grpcClientUser } from "../../../config/grpcClientConfig.js";
 
 class CommentController extends BaseController {
     constructor() {
@@ -46,7 +46,7 @@ class CommentController extends BaseController {
                 message: "No user found"
             });
         }
-        grpcClient.get({ id: userId }, (err, owner) => {
+        grpcClientUser.get({ id: userId }, (err, owner) => {
             if (err) {
                 return res.status(500).json({
                     status: 500,
@@ -63,6 +63,7 @@ class CommentController extends BaseController {
             }
         })
     }
+
 }
 
 export default new CommentController();
