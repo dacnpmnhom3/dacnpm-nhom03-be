@@ -12,13 +12,9 @@ import routes from "../routes/main.routes";
 import orderRouter from "./OrderBC/OrderRouter";
 import productRouter from "./ProductCategoryBC/productRouter";
 import categoryRouter from "./ProductCategoryBC/categoryRouter";
+import cartRouter from "./Cart/CartRouter";
 
 import connectDB from "../../config/MongoDBConfig";
-
-// // environment
-// process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-// const envPath = process.env.NODE_ENV !== 'production' ? `.env.${process.env.NODE_ENV}` : '.env';
-// const config = require('dotenv').config({path: envPath});
 
 // set up cors
 const whitelist = [process.env.URL_FRONT_END, process.env.URL_WEB];
@@ -50,6 +46,7 @@ app.use("/", routes);
 app.use("/api/order", orderRouter);
 app.use("/api/product", productRouter);
 app.use("/api/category", categoryRouter);
+app.use("/api/cart", cartRouter);
 
 const port = process.env.PORT || 4000;
 

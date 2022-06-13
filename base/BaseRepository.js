@@ -19,8 +19,7 @@ class BaseRepository {
       console.error(error);
       return {
         isSuccess: false,
-        error:
-          error.message || `Some error occurred while creating ${modelName}!`,
+        error: error.message || `Some error occurred while creating ${modelName}!`,
       };
     }
   }
