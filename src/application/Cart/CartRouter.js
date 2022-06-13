@@ -20,4 +20,11 @@ router.get("/:id", async (req, res) => {
   res.status(result.statusCode).json(result);
 });
 
+router.get("/userid/:userId", async (req, res) => {
+  const { userId } = req.params;
+  const result = await CartService.getByUserId(userId);
+
+  res.status(result.statusCode).json(result);
+});
+
 export default router;

@@ -12,7 +12,7 @@ const cartSchema = new Schema(
         product_id: {
           type: Schema.Types.ObjectId,
         },
-        product_variations_id: {
+        product_variation_id: {
           type: Schema.Types.ObjectId,
         },
         quantity: {

@@ -1,10 +1,6 @@
 import autoBind from "auto-bind";
-// import mongoose from "mongoose";
-
 import CartModel from "./cartModel";
 import BaseRepository from "../../../base/BaseRepository";
-
-// const { Types } = mongoose;
 
 class CartRepository extends BaseRepository {
   constructor() {
@@ -14,8 +10,7 @@ class CartRepository extends BaseRepository {
 
   async get(id) {
     try {
-    //   const cart2 = await this.model.findById(id);
-      //   console.log(Types.ObjectId(cart2.product_variations_id))
+      const idid = "_id";
       const cart = await this.model
         .findById(id)
         .populate([
@@ -24,19 +19,38 @@ class CartRepository extends BaseRepository {
             model: "Product",
             select: ["name", "variations"],
           },
-        ])
-        .populate([
-          {
-            path: "items.product_variations_id",
-            model: "Product",
-          },
-        ]);
+        ]).lean();
+      const items = cart.items.map((x) => {
+        const variat = x.product_variation_id;
+        const aaa = x.product_id.variations.find((t) => t[idid].toString() === variat.toString());
+        const temp = { ...x, variation: aaa };
+        return temp;
+      });
+      const response = { ...cart, items };
+
       return {
         isSuccess: true,
-        data: { ...cart.toJSON() },
+        data: { ...response },
       };
     } catch (error) {
-      console.error(error);
+      return {
+        isSuccess: false,
+        error:
+          error.message
+          || "Some error occurred while getting Cart information!",
+      };
+    }
+  }
+
+  async getUserId(userId) {
+    try {
+      const cart = await this.model
+        .find({ user_id: userId });
+      return {
+        isSuccess: true,
+        data: { ...cart },
+      };
+    } catch (error) {
       return {
         isSuccess: false,
         error:
