@@ -21,6 +21,20 @@ class ProductService extends BaseService {
 
     return new HttpResponse(result.data);
   }
+
+  async searchByKeyword(keyword) {
+    const result = await this.repository.searchByKeyword(keyword);
+    if (!result.isSuccess) return new HttpError(result.error);
+
+    return new HttpResponse(result.data);
+  }
+
+  async getRecommendProduct(keyword) {
+    const result = await this.repository.getRecommendProduct(keyword);
+    if (!result.isSuccess) return new HttpError(result.error);
+
+    return new HttpResponse(result.data);
+  }
 }
 
 export default new ProductService();
