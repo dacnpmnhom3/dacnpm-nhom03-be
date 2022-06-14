@@ -1,9 +1,10 @@
-import Comment from ".//commentDomainModel";
+import Comment from "./commentDomainModel";
 import BaseService from "../../../base/BaseService.js";
 import autoBind from "auto-bind";
 import { comment } from "./CommentFactory";
-import commentRepository from "../../infrastructure/Comment/CommentRepository.js";
-
+import commentRepository from "../../infrastructure/CommentBC/CommentRepository.js";
+import HttpError from "../../utils/HttpError.js";
+import HttpResponse from "../../utils/HttpResponse";
 
 
 class CommentService extends BaseService {
@@ -162,6 +163,21 @@ class CommentService extends BaseService {
     //         throw error;
     //     }
     // }
+
+    async update(id, data) {
+        const updateComment = comment(data);
+        // validate failed
+        if (updateComment.errMessage) {
+            return new HttpError(updateComment.errMessage);
+        }
+
+        // update
+        const result = await this.repository.update(id, updateComment.info);
+        if (!result.isSuccess) {
+            return new HttpError(result.message);
+        }
+        return new HttpResponse(result.data);
+    }
 }
 
 export default new CommentService();

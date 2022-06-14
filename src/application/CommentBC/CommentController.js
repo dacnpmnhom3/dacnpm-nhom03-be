@@ -1,4 +1,4 @@
-import CommentService from "../../domain/Comment/CommentService";
+import CommentService from "../../domain/CommentBC/CommentService";
 import BaseController from "../../../base/BaseController.js";
 import autoBind from "auto-bind";
 import { getPage } from "../../../utils/pagination";

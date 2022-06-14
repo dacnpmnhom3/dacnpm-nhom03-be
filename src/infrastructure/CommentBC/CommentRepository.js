@@ -58,6 +58,16 @@ class CommentRepository extends BaseRepository {
             throw error;
         }
     }
+
+    async update(id, data) {
+        try {
+            const newComment = await this.model.findByIdAndUpdate(id, data);
+            return { isSuccess: true, data: newComment };
+        } catch (error) {
+            console.error(error);
+            return { isSuccess: false, data: error.message };
+        }
+    }
 }
 
 export default new CommentRepository();

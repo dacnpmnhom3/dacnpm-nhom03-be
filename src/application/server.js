@@ -11,7 +11,7 @@ import cors from "cors";
 import routes from "../routes/main.routes";
 import orderRouter from "./OrderBC/OrderRouter";
 import ProductRouter from "./Product/ProductRouter";
-import commentsRouter from "./Comment/CommentRouter";
+import commentsRouter from "./CommentBC/CommentRouter";
 
 import connectDB from "../../config/MongoDBConfig";
 
