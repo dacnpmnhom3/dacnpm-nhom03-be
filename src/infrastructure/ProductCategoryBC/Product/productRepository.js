@@ -1,13 +1,13 @@
 import autoBind from "auto-bind";
 import mongoose from "mongoose";
 
-import ProductModel from "./product.model";
+// eslint-disable-next-line no-unused-vars
+import DiscountModel from "../../StoreBC/Discount/discount.model";
+import ProductModel from "./productModel";
 import BaseRepository from "../../../../base/BaseRepository";
 import Category from "../Category/CategoryModel";
 // eslint-disable-next-line no-unused-vars
-import StoreModel from "../../StoreBC/Store/store.model";
-// eslint-disable-next-line no-unused-vars
-import DiscountModel from "../../StoreBC/Discount/discount.model";
+import StoreModel from "../../StoreBC/Store/storeModel";
 
 const { Types } = mongoose;
 
@@ -57,6 +57,7 @@ class ProductRepository extends BaseRepository {
       category[0].ancestor.forEach((element) => {
         concatenateCatagory = `${element} > ${concatenateCatagory}`;
       });
+
       return {
         isSuccess: true,
         data: { ...product.toJSON(), category: concatenateCatagory },
