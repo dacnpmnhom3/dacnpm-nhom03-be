@@ -1,10 +1,13 @@
 import express from "express";
+import categoryService from "../../domain/ProductCategoryBC/Category/CategoryService";
 
 const router = express.Router();
 
 // Get
 router.get("/", async (req, res) => {
-  res.send("Category!");
+  const result = await categoryService.getCategories();
+
+  res.status(result.statusCode).json(result);
 });
 
 export default router;

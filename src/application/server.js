@@ -10,8 +10,8 @@ import cors from "cors";
 // routes
 import routes from "../routes/main.routes";
 import orderRouter from "./OrderBC/OrderRouter";
-import productRouter from "./ProductCategoryBC/productRouter";
-import categoryRouter from "./ProductCategoryBC/categoryRouter";
+import productRouter from "./ProductCategoryBC/ProductRouter";
+import categoryRouter from "./ProductCategoryBC/CategoryRouter";
 
 import connectDB from "../../config/MongoDBConfig";
 
@@ -40,9 +40,9 @@ connectDB();
 
 app.use(cors(corsOptions));
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: "50mb" }));
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
 app.use(passport.initialize());
 
