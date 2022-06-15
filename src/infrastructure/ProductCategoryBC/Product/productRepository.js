@@ -1,11 +1,11 @@
 import autoBind from "auto-bind";
 import mongoose from "mongoose";
 
-import ProductModel from "./productModel";
+import ProductModel from "./product.model";
 import BaseRepository from "../../../../base/BaseRepository";
 import Category from "../Category/CategoryModel";
 // eslint-disable-next-line no-unused-vars
-import StoreModel from "../../StoreBC/Store/storeModel";
+// import StoreModel from "../../StoreBC/Store/store.model";
 
 const { Types } = mongoose;
 

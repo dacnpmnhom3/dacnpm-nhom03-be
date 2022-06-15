@@ -12,7 +12,7 @@ import routes from "../routes/main.routes";
 import orderRouter from "./OrderBC/OrderRouter";
 import productRouter from "./ProductCategoryBC/productRouter";
 import categoryRouter from "./ProductCategoryBC/categoryRouter";
-
+import storeRouter from "./StoreBC/storeRouter";
 import connectDB from "../../config/MongoDBConfig";
 
 // // environment
@@ -50,6 +50,7 @@ app.use("/", routes);
 app.use("/api/order", orderRouter);
 app.use("/api/product", productRouter);
 app.use("/api/category", categoryRouter);
+app.use("/api/store", storeRouter);
 
 const port = process.env.PORT || 4000;
 
