@@ -9,40 +9,49 @@ class CommentRepository extends BaseRepository {
         autoBind(this);
     }
 
-    async getAllComment(page, limit) {
+    async getAll(page, limit) {
         try {
             const allComments = await this.model.find({}, {}, { skip: (page) * limit, limit: limit });
-            return allComments;
+            if (allComments.length === 0) {
+                return { isSuccess: false, message: "No comment found" };
+            }
+            return { isSuccess: true, data: allComments };
         } catch (error) {
             console.error(error);
-            throw error;
+            return { isSuccess: false, message: error.message };
         }
     }
 
     async findById(id) {
         try {
             const result = await this.model.findById(id);
-            return result;
+            if (!result) {
+                return { isSuccess: false, message: "No comment found" };
+            }
+            return { isSuccess: true, data: result };
         } catch (error) {
             console.error(error);
-            throw error;
+            return { isSuccess: false, message: error.message };
         }
     }
 
     async insert(data) {
         try {
             const result = await this.model.create(data);
-            return result;
+            return { isSuccess: true, data: result };
         } catch (error) {
             console.error(error);
-            throw error;
+            return { isSuccess: false, message: error.message };
         }
     }
 
     async findByProductId(productId) {
         try {
             const result = await this.model.find({ product_id: productId });
-            return result;
+            if (result.length === 0) {
+                return { isSuccess: false, message: "No comment found" };
+            }
+            return { isSuccess: true, data: result };
         } catch (error) {
             console.error(error);
             throw error;
@@ -52,10 +61,13 @@ class CommentRepository extends BaseRepository {
     async findByUserId(id) {
         try {
             const result = await this.model.find({ user_id: id });
-            return result;
+            if (result.length === 0) {
+                return { isSuccess: false, message: "No comment found" };
+            }
+            return { isSuccess: true, data: result };
         } catch (error) {
             console.error(error);
-            throw error;
+            return { isSuccess: false, message: error.message };
         }
     }
 
@@ -65,7 +77,7 @@ class CommentRepository extends BaseRepository {
             return { isSuccess: true, data: newComment };
         } catch (error) {
             console.error(error);
-            return { isSuccess: false, data: error.message };
+            return { isSuccess: false, message: error.message };
         }
     }
 }

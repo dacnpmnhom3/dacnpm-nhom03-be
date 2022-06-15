@@ -13,110 +13,55 @@ class CommentService extends BaseService {
         autoBind(this);
     }
     async getAll(page, limit) {
-        const response = {
-            status: "",
-            data: null,
-            message: "",
+        const result = await this.repository.getAll(page, limit);
+        if (!result.isSuccess) {
+            return new HttpError(result.message);
         }
-        try {
-            const allComments = await this.repository.getAllComment(page, limit);
-            if (allComments.length > 0) {
-                response.status = 200;
-                response.data = allComments;
-                response.message = "list of all comment";
-                return response;
-            } else {
-                response.status = 500;
-                response.data = null;
-                response.message = "No Comment found";
-                return response;
-            }
-        } catch (error) {
-            console.error(error);
-            throw error;
-        }
+        return new HttpResponse(result.data);
     }
 
     async insert(data) {
-        const response = {
-            status: "",
-            data: null,
-            message: "",
-        }
         try {
             const newComment = comment(data);
             if (newComment.errMessage) {
-                response.status = 400;
-                response.data = null;
-                response.message = newComment.errMessage;
-                return response;
+                return new HttpError(newComment.errMessage);
             }
             const result = await this.repository.insert(newComment.info);
-            if (result) {
-                response.status = 200;
-                response.data = result;
-                response.message = "Comment inserted successfully";
-                return response;
-            } else {
-                response.status = 500;
-                response.data = null;
-                response.message = "Comment not inserted";
-                return response;
+            if (!result.isSuccess) {
+                return new HttpError(result.message);
             }
+            return new HttpResponse(result.data);
         } catch (error) {
             console.error(error);
-            throw error;
+            return new HttpError(error);
         }
     }
 
     async findByProductId(id) {
-        const response = {
-            status: "",
-            data: null,
-            message: "",
-        }
         try {
-            const allComments = await this.repository.findByProductId(id);
-            if (allComments.length > 0) {
-                response.status = 200;
-                response.data = allComments;
-                response.message = "list of all comment for product";
-                return response;
-            } else {
-                response.status = 500;
-                response.data = null;
-                response.message = "No Comment found";
-                return response;
+            const result = await this.repository.findByProductId(id);
+            if (!result.isSuccess) {
+                return new HttpError(result.message);
             }
+            return new HttpResponse(result.data);
+
         } catch (error) {
             console.error(error);
-            throw error;
+            return new HttpError(error.message);
         }
 
     }
 
     async findByUserId(id) {
-        const response = {
-            status: "",
-            data: null,
-            message: "",
-        }
         try {
-            const allComments = await this.repository.findByUserId(id);
-            if (allComments.length > 0) {
-                response.status = 200;
-                response.data = allComments;
-                response.message = "list of all comment of user";
-                return response;
-            } else {
-                response.status = 500;
-                response.data = null;
-                response.message = "No Comment found";
-                return response;
+            const result = await this.repository.findByUserId(id);
+            if (!result.isSuccess) {
+                return new HttpError(result.message);
             }
+            return new HttpResponse(result.data);
         } catch (error) {
             console.error(error);
-            throw error;
+            return new HttpError(error.message);
         }
     }
 
@@ -173,6 +118,15 @@ class CommentService extends BaseService {
 
         // update
         const result = await this.repository.update(id, updateComment.info);
+        if (!result.isSuccess) {
+            return new HttpError(result.message);
+        }
+        return new HttpResponse(result.data);
+    }
+
+
+    async findById(id) {
+        const result = await this.repository.findById(id);
         if (!result.isSuccess) {
             return new HttpError(result.message);
         }
