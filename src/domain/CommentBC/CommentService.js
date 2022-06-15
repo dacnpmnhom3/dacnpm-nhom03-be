@@ -1,10 +1,10 @@
-// import Comment from "./commentDomainModel";
 import autoBind from "auto-bind";
 import BaseService from "../../../base/BaseService";
 import { comment } from "./CommentFactory";
 import commentRepository from "../../infrastructure/CommentBC/CommentRepository";
 import HttpError from "../../utils/HttpError";
 import HttpResponse from "../../utils/HttpResponse";
+import { grpcClientUser } from "../../../config/grpcClientConfig";
 
 class CommentService extends BaseService {
   constructor() {
@@ -13,105 +13,53 @@ class CommentService extends BaseService {
   }
 
   async getAll(page, limit) {
-    const response = {
-      status: "",
-      data: null,
-      message: "",
-    };
-    try {
-      const allComments = await this.repository.getAllComment(page, limit);
-      if (allComments.length > 0) {
-        response.status = 200;
-        response.data = allComments;
-        response.message = "list of all comment";
-        return response;
-      }
-      response.status = 500;
-      response.data = null;
-      response.message = "No Comment found";
-      return response;
-    } catch (error) {
-      console.error(error);
-      throw error;
+    const result = await this.repository.getAll(page, limit);
+    if (!result.isSuccess) {
+      return new HttpError(result.message);
     }
+    return new HttpResponse(result.data);
   }
 
   async insert(data) {
-    const response = {
-      status: "",
-      data: null,
-      message: "",
-    };
     try {
       const newComment = comment(data);
       if (newComment.errMessage) {
-        response.status = 400;
-        response.data = null;
-        response.message = newComment.errMessage;
-        return response;
+        return new HttpError(newComment.errMessage);
       }
       const result = await this.repository.insert(newComment.info);
-      if (result) {
-        response.status = 200;
-        response.data = result;
-        response.message = "Comment inserted successfully";
-        return response;
+      if (!result.isSuccess) {
+        return new HttpError(result.message);
       }
-      response.status = 500;
-      response.data = null;
-      response.message = "Comment not inserted";
-      return response;
+      return new HttpResponse(result.data);
     } catch (error) {
       console.error(error);
-      throw error;
+      return new HttpError(error);
     }
   }
 
   async findByProductId(id) {
-    const response = {
-      status: "",
-      data: null,
-      message: "",
-    };
     try {
-      const allComments = await this.repository.findByProductId(id);
-      if (allComments.length > 0) {
-        response.status = 200;
-        response.data = allComments;
-        response.message = "list of all comment for product";
-        return response;
+      const result = await this.repository.findByProductId(id);
+      if (!result.isSuccess) {
+        return new HttpError(result.message);
       }
-      response.status = 500;
-      response.data = null;
-      response.message = "No Comment found";
-      return response;
+      return new HttpResponse(result.data);
     } catch (error) {
       console.error(error);
-      throw error;
+      return new HttpError(error.message);
     }
   }
 
   async findByUserId(id) {
-    const response = {
-      status: "",
-      data: null,
-      message: "",
-    };
     try {
-      const allComments = await this.repository.findByUserId(id);
-      if (allComments.length > 0) {
-        response.status = 200;
-        response.data = allComments;
-        response.message = "list of all comment of user";
-        return response;
+      const result = await this.repository.findByUserId(id);
+      if (!result.isSuccess) {
+        return new HttpError(result.message);
       }
-      response.status = 500;
-      response.data = null;
-      response.message = "No Comment found";
-      return response;
+      return new HttpResponse(result.data);
     } catch (error) {
       console.error(error);
-      throw error;
+      return new HttpError(error.message);
     }
   }
 
@@ -122,42 +70,6 @@ class CommentService extends BaseService {
     }
     return false;
   }
-
-  // async findOwnerOfComment(id) {
-  //     const response = {
-  //         status: "",
-  //         data: null,
-  //         message: "",
-  //     }
-  //     try {
-  //         const allComments = await this.repository.findById(id);
-  //         if (allComments) {
-  //             // use grpc client to get user info
-  //             const user_id = {
-  //                 id: allComments.user_id
-  //             };
-  //             grpcClient.get(user_id, (error, admin) => {
-  //                 if (error) {
-  //                     console.log(error);
-  //                 } else {
-  //                     response.status = 200;
-  //                     response.data = admin;
-  //                     console.log(admin);
-  //                     response.message = "user info";
-  //                     return response;
-  //                 }
-  //             });
-  //         } else {
-  //             response.status = 500;
-  //             response.data = null;
-  //             response.message = "No Comment found";
-  //             return response;
-  //         }
-  //     } catch (error) {
-  //         console.error(error);
-  //         throw error;
-  //     }
-  // }
 
   async update(id, data) {
     const updateComment = comment(data);
@@ -172,6 +84,41 @@ class CommentService extends BaseService {
       return new HttpError(result.message);
     }
     return new HttpResponse(result.data);
+  }
+
+  async findById(id) {
+    const result = await this.repository.findById(id);
+    if (!result.isSuccess) {
+      return new HttpError(result.message);
+    }
+    return new HttpResponse(result.data);
+  }
+
+  async findOwnerInfoByCommentId(req, res) {
+    const { id } = req.params;
+    const userId = await this.service.findUserIDofComment(id);
+    if (!userId) {
+      return res.status(500).json({
+        status: 500,
+        data: null,
+        message: "No user found",
+      });
+    }
+    grpcClientUser.get({ id: userId }, (err, owner) => {
+      if (err) {
+        return res.status(500).json({
+          status: 500,
+          data: null,
+          message: "Internal Server Error",
+        });
+      }
+
+      return res.status(200).json({
+        status: 200,
+        data: owner,
+        message: "Owner info found",
+      });
+    });
   }
 }
 
