@@ -2,7 +2,9 @@ import autoBind from "auto-bind";
 import mongoose from "mongoose";
 import isEqual from "lodash/isEqual";
 
-import ProductModel from "./ProductModel";
+// eslint-disable-next-line no-unused-vars
+import DiscountModel from "../../StoreBC/Discount/discount.model";
+import ProductModel from "./productModel";
 import BaseRepository from "../../../../base/BaseRepository";
 import Category from "../Category/CategoryModel";
 import CategoryRepository from "../Category/CategoryRepository";
@@ -28,6 +30,11 @@ class ProductRepository extends BaseRepository {
             path: "store_id",
             model: "Store",
             select: ["store_name", "store_image"],
+          },
+          {
+            path: "discount_id",
+            model: "Discount",
+            select: ["name", "description", "discount_percent"],
           },
         ])
         .exec();

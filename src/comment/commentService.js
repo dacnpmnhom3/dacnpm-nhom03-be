@@ -1,13 +1,14 @@
-import Comment from "./commentModel.js";
-import BaseSevice from "../../base/BaseService.js";
 import autoBind from "auto-bind";
-import HttpResponse from "../../helper/HttpResponse.js";
+import Comment from "./commentModel";
+import BaseSevice from "../../base/BaseService";
+import HttpResponse from "../../helper/HttpResponse";
 
 class CommentService extends BaseSevice {
   constructor() {
     super(Comment);
     autoBind(this);
   }
+
   async insertComment(data) {
     try {
       const item = await this.model.create(data);
@@ -18,10 +19,11 @@ class CommentService extends BaseSevice {
       console.error(error);
     }
   }
+
   async getAllCommentsByProductId(productId) {
     try {
       const allComments = await this.model.findAll({
-        where: { productId: productId },
+        where: { productId },
       });
       return allComments;
     } catch (error) {
