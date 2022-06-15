@@ -9,7 +9,7 @@ import BaseRepository from "../../../../base/BaseRepository";
 import Category from "../Category/CategoryModel";
 import CategoryRepository from "../Category/CategoryRepository";
 // eslint-disable-next-line no-unused-vars
-// import StoreModel from "../../StoreBC/Store/storeModel";
+import StoreModel from "../../StoreBC/Store/storeModel";
 
 const { Types } = mongoose;
 
@@ -103,6 +103,59 @@ class ProductRepository extends BaseRepository {
     }
   }
 
+  async searchByKeyword(keyword) {
+    try {
+      const product = await this.model
+        .aggregate([
+          { $match: { name: { $regex: keyword, $options: "i" } } },
+          { $sample: { size: 4 } },
+        ])
+        .exec();
+      return { isSuccess: true, data: product };
+    } catch (error) {
+      console.error(error);
+      return {
+        isSuccess: false,
+        error: error.message || "Some error occurred while searching products!",
+      };
+    }
+  }
+
+  async getRecommendProduct(keyword) {
+    try {
+      const product = await this.model
+        .find({
+          $or: [
+            { name: { $regex: keyword, $options: "i" } },
+            {
+              "properties.property_value.value": {
+                $regex: keyword,
+                $options: "i",
+              },
+            },
+          ],
+        })
+        .limit(3)
+        .populate([
+          {
+            path: "store_id",
+            model: "Store",
+            select: ["store_name", "store_image"],
+          },
+        ])
+        .exec();
+      return { isSuccess: true, data: product };
+    } catch (error) {
+      console.error(error);
+      return {
+        isSuccess: false,
+        error:
+          error.message
+          || "Some error occurred while getting recommended products!",
+      };
+    }
+  }
+
   async getRecentVariations(categoryId) {
     try {
       const variationsArr = await categoryRepository.getVariations(categoryId);
@@ -140,10 +193,12 @@ class ProductRepository extends BaseRepository {
               (variationName) => {
                 if (
                   option.variation_name === variationName
-                  && recentVariations[variationName].options.every((e) => !isEqual(e, {
-                    label: option.value,
-                    value: option.value,
-                  }))
+                  && recentVariations[variationName].options.every(
+                    (e) => !isEqual(e, {
+                      label: option.value,
+                      value: option.value,
+                    }),
+                  )
                 ) {
                   recentVariations[variationName].options = [
                     ...recentVariations[variationName].options,

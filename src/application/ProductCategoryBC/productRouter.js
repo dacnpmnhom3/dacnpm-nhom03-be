@@ -26,6 +26,20 @@ router.get("/:id", async (req, res) => {
   res.status(result.statusCode).json(result);
 });
 
+router.get("/search/:key", async (req, res) => {
+  const { key } = req.params;
+  const result = await ProductService.searchByKeyword(key);
+
+  res.status(result.statusCode).json(result.data);
+});
+
+router.get("/recommend/:key", async (req, res) => {
+  const { key } = req.params;
+  const result = await ProductService.getRecommendProduct(key);
+
+  res.status(result.statusCode).json(result.data);
+});
+
 router.get("/recent-variations/:id", async (req, res) => {
   const { id } = req.params;
   const result = await ProductService.getRecentVariations(id);
