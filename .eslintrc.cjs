@@ -18,5 +18,7 @@ module.exports = {
     "no-param-reassign": [0],
     "linebreak-style": ["off", "windows"],
     "import/no-unresolved": [0],
+    "consistent-return": "off",
+    "import/prefer-default-export": "off",
   },
 };
