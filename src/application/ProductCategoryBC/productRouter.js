@@ -61,7 +61,7 @@ router.get("/", async (req, res) => {
   const limit = getPageSize(req.query.limit);
 
   const result = await ProductService.getAll(page, limit);
-  res.status(result.statusCode).json(result);
+  res.status(result.statusCode).json(result.data);
 });
 
 export default router;
