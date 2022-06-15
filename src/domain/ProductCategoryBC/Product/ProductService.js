@@ -76,7 +76,7 @@ class ProductService extends BaseService {
     if (!categories.isSuccess) return new HttpError(categories.error);
     const listCategory = categories.data;
     const result = await this.repository.getAllGroupByCategory(page, limit, listCategory);
-    //if (!result.isSuccess) return new HttpError(result.error);
+    // if (!result.isSuccess) return new HttpError(result.error);
     return new HttpResponse(result);
   }
 }

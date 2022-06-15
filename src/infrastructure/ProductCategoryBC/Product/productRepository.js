@@ -234,8 +234,9 @@ class ProductRepository extends BaseRepository {
   async getAllGroupByCategory(page, limit, listCategory) {
     const data = {};
     try {
+      // eslint-disable-next-line no-restricted-syntax
       for (const category of listCategory) {
-        const products = await this.model.find({ "category_id": category._id })
+        const products = await this.model.find({ category_id: category._id })
           .select({ variations: 0, properties: 0 })
           .sort({ createdAt: -1 })
           .populate([
@@ -255,8 +256,8 @@ class ProductRepository extends BaseRepository {
           .exec();
 
         data[category.category_name] = products;
-      };
-      return { isSuccess: true, data: data };
+      }
+      return { isSuccess: true, data };
     } catch (error) {
       console.error(error);
       return {

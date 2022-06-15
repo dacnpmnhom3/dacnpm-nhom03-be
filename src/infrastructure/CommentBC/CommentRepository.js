@@ -9,7 +9,6 @@ class CommentRepository extends BaseRepository {
     autoBind(this);
   }
 
-
   async getAll(page, limit) {
     try {
       const allComments = await this.model.find({}, {}, { skip: (page) * limit, limit }).populate(
