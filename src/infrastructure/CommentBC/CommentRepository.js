@@ -11,7 +11,20 @@ class CommentRepository extends BaseRepository {
 
     async getAll(page, limit) {
         try {
-            const allComments = await this.model.find({}, {}, { skip: (page) * limit, limit: limit });
+            const allComments = await this.model.find({}, {}, { skip: (page) * limit, limit: limit }).populate(
+                [
+                    {
+                        path: "product_id",
+                        model: "Products",
+                        select: ["name", "thumbnails"]
+                    },
+                    {
+                        path: "ancestor_comment",
+                        model: "Comment",
+                        select: ["content", "user_id"]
+                    }
+                ]
+            ).exec();
             if (allComments.length === 0) {
                 return { isSuccess: false, message: "No comment found" };
             }
@@ -24,7 +37,20 @@ class CommentRepository extends BaseRepository {
 
     async findById(id) {
         try {
-            const result = await this.model.findById(id);
+            const result = await this.model.findById(id).populate(
+                [
+                    {
+                        path: "product_id",
+                        model: "Products",
+                        select: ["name", "thumbnails"]
+                    },
+                    {
+                        path: "ancestor_comment",
+                        model: "Comment",
+                        select: ["content", "user_id"]
+                    }
+                ]
+            ).exec();
             if (!result) {
                 return { isSuccess: false, message: "No comment found" };
             }
@@ -47,7 +73,20 @@ class CommentRepository extends BaseRepository {
 
     async findByProductId(productId) {
         try {
-            const result = await this.model.find({ product_id: productId });
+            const result = await this.model.find({ product_id: productId }).populate(
+                [
+                    {
+                        path: "product_id",
+                        model: "Products",
+                        select: ["name", "thumbnails"]
+                    },
+                    {
+                        path: "ancestor_comment",
+                        model: "Comment",
+                        select: ["content", "user_id"]
+                    }
+                ]
+            ).exec();
             if (result.length === 0) {
                 return { isSuccess: false, message: "No comment found" };
             }

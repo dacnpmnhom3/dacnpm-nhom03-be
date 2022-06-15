@@ -23,6 +23,7 @@
     "@grpc/grpc-js": "^1.6.7",
     "@hapi/joi": "^15.1.1",
     "auto-bind": "^5.0.1",
+    "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.2",

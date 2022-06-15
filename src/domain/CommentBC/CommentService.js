@@ -1,6 +1,6 @@
-import Comment from "./commentDomainModel";
 import BaseService from "../../../base/BaseService.js";
 import autoBind from "auto-bind";
+import axios from "axios";
 import { comment } from "./CommentFactory";
 import commentRepository from "../../infrastructure/CommentBC/CommentRepository.js";
 import HttpError from "../../utils/HttpError.js";
