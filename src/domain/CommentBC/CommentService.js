@@ -1,4 +1,4 @@
-import Comment from "./commentDomainModel";
+// import Comment from "./commentDomainModel";
 import BaseService from "../../../base/BaseService.js";
 import autoBind from "auto-bind";
 import { comment } from "./CommentFactory";
