@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
 import commentController from "./CommentController.js";
-import commentService from "../../domain/CommentBC/commentService.js";
+import commentService from "../../domain/CommentBC/CommentService.js";
 
 router.get("/", commentController.getAll);
 router.post("/", commentController.insert);
