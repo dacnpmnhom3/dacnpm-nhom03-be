@@ -1,5 +1,5 @@
 import express from "express";
-import ProductService from "../../domain/ProductCategoryBC/Product/productService";
+import ProductService from "../../domain/ProductCategoryBC/Product/ProductService";
 
 const router = express.Router();
 
@@ -38,6 +38,20 @@ router.get("/recommend/:key", async (req, res) => {
   const result = await ProductService.getRecommendProduct(key);
 
   res.status(result.statusCode).json(result.data);
+});
+
+router.get("/recent-variations/:id", async (req, res) => {
+  const { id } = req.params;
+  const result = await ProductService.getRecentVariations(id);
+
+  res.status(result.statusCode).json(result);
+});
+
+router.post("/", async (req, res) => {
+  const data = req.body;
+  const result = await ProductService.createProduct(data);
+
+  res.status(result.statusCode).json(result);
 });
 
 export default router;

@@ -1,13 +1,19 @@
 import autoBind from "auto-bind";
 import mongoose from "mongoose";
+import isEqual from "lodash/isEqual";
 
-import ProductModel from "./product.model";
+// eslint-disable-next-line no-unused-vars
+import DiscountModel from "../../StoreBC/Discount/discount.model";
+import ProductModel from "./productModel";
 import BaseRepository from "../../../../base/BaseRepository";
 import Category from "../Category/CategoryModel";
+import CategoryRepository from "../Category/CategoryRepository";
 // eslint-disable-next-line no-unused-vars
-import StoreModel from "../../StoreBC/Store/store.model";
+import StoreModel from "../../StoreBC/Store/storeModel";
 
 const { Types } = mongoose;
+
+const categoryRepository = new CategoryRepository();
 
 class ProductRepository extends BaseRepository {
   constructor() {
@@ -24,6 +30,11 @@ class ProductRepository extends BaseRepository {
             path: "store_id",
             model: "Store",
             select: ["store_name", "store_image"],
+          },
+          {
+            path: "discount_id",
+            model: "Discount",
+            select: ["name", "description", "discount_percent"],
           },
         ])
         .exec();
@@ -138,7 +149,84 @@ class ProductRepository extends BaseRepository {
       console.error(error);
       return {
         isSuccess: false,
-        error: error.message || "Some error occurred while searching products!",
+        error:
+          error.message
+          || "Some error occurred while getting recommended products!",
+      };
+    }
+  }
+
+  async getRecentVariations(categoryId) {
+    try {
+      const variationsArr = await categoryRepository.getVariations(categoryId);
+      const recentVariations = {};
+
+      variationsArr.variations.product_variations.forEach((variation) => {
+        recentVariations[variation] = {
+          variationName: variation,
+          options: [],
+        };
+        return null;
+      });
+
+      const products = await this.model.aggregate([
+        {
+          $match: {
+            category_id: Types.ObjectId(categoryId),
+          },
+        },
+        {
+          $project: {
+            variations: "$variations.variation_attributes",
+          },
+        },
+        {
+          $limit: 15,
+        },
+      ]);
+
+      // Need to optimize
+      products.forEach((product) => {
+        product.variations.forEach((options) => {
+          options.forEach((option) => {
+            variationsArr.variations.product_variations.forEach(
+              (variationName) => {
+                if (
+                  option.variation_name === variationName
+                  && recentVariations[variationName].options.every(
+                    (e) => !isEqual(e, {
+                      label: option.value,
+                      value: option.value,
+                    }),
+                  )
+                ) {
+                  recentVariations[variationName].options = [
+                    ...recentVariations[variationName].options,
+                    {
+                      label: option.value,
+                      value: option.value,
+                    },
+                  ];
+                }
+                return null;
+              },
+            );
+          });
+        });
+      });
+
+      return {
+        isSuccess: true,
+        recentVariations,
+        message: "Get recent variations successfully!",
+      };
+    } catch (error) {
+      console.error(error);
+      return {
+        isSuccess: false,
+        error:
+          error.message
+          || "Some error occurred while getting recent variations!",
       };
     }
   }
