@@ -17,6 +17,11 @@ router.get("/pending-order", async (req, res) => {
 
   res.status(result.statusCode).json(result);
 });
+router.post("/payment", async (req, res) => {
+  const result = await OrderService.createPaymentOrder(req.body);
+
+  res.status(result.statusCode).json(result);
+});
 
 router.post("/create-storeorder", async (req, res) => {
   const result = await StoreOrder.create([
