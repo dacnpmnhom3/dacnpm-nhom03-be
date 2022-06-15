@@ -26,6 +26,13 @@ class CartService extends BaseService {
 
     return new HttpResponse(result.data);
   }
+
+  async restartCart(userId) {
+    const result = await this.repository.restartCart(userId);
+    if (!result.isSuccess) return new HttpError(result.error);
+
+    return new HttpResponse(result.data);
+  }
 }
 
 export default new CartService();
