@@ -1,5 +1,5 @@
 import autoBind from "auto-bind";
-import CartModel from "./cartModel";
+import CartModel from "./CartModel";
 import BaseRepository from "../../../base/BaseRepository";
 
 class CartRepository extends BaseRepository {
