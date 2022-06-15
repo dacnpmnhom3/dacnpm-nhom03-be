@@ -59,6 +59,48 @@ class CartRepository extends BaseRepository {
       };
     }
   }
+
+  async addToCard(userId, productId, quantity, productVariationId) {
+    try {
+      const cart = await this.model
+        .findOne({ user_id: userId });
+      if (!cart) {
+        const newCart = new CartModel({
+          user_id: userId,
+          items: [
+            {
+              product_id: productId,
+              quantity,
+              product_variation_id: productVariationId,
+            },
+          ],
+        });
+        const result = await newCart.save();
+        return {
+          isSuccess: true,
+          data: result,
+        };
+      }
+      cart.items.push({
+        product_id: productId,
+        quantity,
+        product_variation_id: productVariationId,
+      });
+
+      const result = await cart.save();
+      return {
+        isSuccess: true,
+        data: result,
+      };
+    } catch (error) {
+      return {
+        isSuccess: false,
+        error:
+          error.message
+          || "Some error occurred while adding to Cart!",
+      };
+    }
+  }
 }
 
 export default CartRepository;
