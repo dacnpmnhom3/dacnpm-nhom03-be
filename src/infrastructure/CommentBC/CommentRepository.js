@@ -9,6 +9,7 @@ class CommentRepository extends BaseRepository {
     autoBind(this);
   }
 
+
   async getAll(page, limit) {
     try {
       const allComments = await this.model.find({}, {}, { skip: (page) * limit, limit }).populate(
@@ -100,6 +101,7 @@ class CommentRepository extends BaseRepository {
   async findByUserId(id) {
     try {
       const result = await this.model.find({ user_id: id });
+
       if (result.length === 0) {
         return { isSuccess: false, message: "No comment found" };
       }
