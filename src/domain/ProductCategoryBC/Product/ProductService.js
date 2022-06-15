@@ -4,7 +4,7 @@ import autoBind from "auto-bind";
 import convertCamelCaseToSnakeCaseObj from "../../../utils/format";
 
 import BaseService from "../../../../base/BaseService";
-import ProductRepository from "../../../infrastructure/ProductCategoryBC/Product/ProductRepository";
+import ProductRepository from "../../../infrastructure/ProductCategoryBC/Product/productRepository";
 import HttpError from "../../../utils/HttpError";
 import HttpResponse from "../../../utils/HttpResponse";
 
