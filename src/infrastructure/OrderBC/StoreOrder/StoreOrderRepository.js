@@ -4,6 +4,8 @@ import autoBind from "auto-bind";
 import DiscountModel from "../../StoreBC/Discount/discount.model";
 import StoreOrderModel from "./StoreOrderModel";
 import BaseRepository from "../../../../base/BaseRepository";
+import Store from "../../StoreBC/Store/storeModel";
+
 // eslint-disable-next-line no-unused-vars
 // import StoreModel from "../../StoreBC/Store/store.model";
 
@@ -17,26 +19,27 @@ class StoreOrderRepository extends BaseRepository {
 
   async get(id) {
     try {
-      const product = await this.model
+      const orderDetail = await this.model
         .findById(id)
         .populate([
           {
-            path: "store_id",
-            model: "Store",
-            select: ["store_name", "store_image"],
+            path: "items.product_id",
+            model: "Product",
+            select: { properties: 0, description: 0 },
           },
           {
-            path: "discount_id",
-            model: "Discount",
-            select: ["name", "description", "discount_percent"],
+            path: "ancestor_order",
+            model: "orders",
+            select: [
+              "ship_date",
+              "receiver_address",
+              "receiver_name",
+              "receiver_phone",
+            ],
           },
         ])
         .exec();
-
-      return {
-        isSuccess: true,
-        data: { ...product.toJSON() },
-      };
+      return { isSuccess: true, data: orderDetail };
     } catch (error) {
       console.error(error);
       return {
@@ -48,21 +51,24 @@ class StoreOrderRepository extends BaseRepository {
     }
   }
 
-  async getPendingOrders() {
+  async getPendingOrders(storeOwnerId) {
     try {
-      const productList = await this.model
-        .find({ status: "pending" })
-        .select({ variations: 0, properties: 0 })
+      console.log(storeOwnerId);
+      const foundStore = await Store.findOne({ store_owner_id: storeOwnerId });
+      console.log({ foundStore });
+      const orderList = await this.model
+        .find({ store_id: foundStore._id, status: "pending" })
         .sort({ createdAt: -1 })
         .populate([
           {
-            path: "store_id",
-            model: "Store",
-            select: ["store_name", "store_image"],
+            path: "items.product_id",
+            model: "Product",
+            select: { properties: 0, description: 0 },
           },
         ])
         .exec();
-      return { isSuccess: true, data: productList };
+      console.log(orderList.items);
+      return { isSuccess: true, data: orderList };
     } catch (error) {
       console.error(error);
       return {

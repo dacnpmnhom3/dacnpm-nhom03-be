@@ -11,7 +11,7 @@ const storeSchema = new Schema(
       type: String,
     },
     store_owner_id: {
-      type: String,
+      type: Number,
     },
     warehouses: [
       {

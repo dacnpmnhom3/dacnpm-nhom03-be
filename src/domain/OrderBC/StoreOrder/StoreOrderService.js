@@ -15,8 +15,8 @@ class StoreOrderService extends BaseService {
     autoBind(this);
   }
 
-  async getPendingOrders() {
-    const result = await this.repository.getPendingProducts();
+  async getPendingOrders(storeOwnerId) {
+    const result = await this.repository.getPendingOrders(storeOwnerId);
     if (!result.isSuccess) return new HttpError(result.error);
 
     return new HttpResponse(result.data);
