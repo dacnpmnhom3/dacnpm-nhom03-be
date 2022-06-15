@@ -1,7 +1,7 @@
 import CommentService from "../../domain/CommentBC/CommentService";
 import BaseController from "../../../base/BaseController.js";
 import autoBind from "auto-bind";
-import { getPage } from "../../../utils/pagination";
+import { getPage } from "../../../utils/Pagination";
 import { grpcClientAdmin, grpcClientUser } from "../../../config/grpcClientConfig.js";
 
 class CommentController extends BaseController {
