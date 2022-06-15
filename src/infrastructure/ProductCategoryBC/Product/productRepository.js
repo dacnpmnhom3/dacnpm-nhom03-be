@@ -230,6 +230,44 @@ class ProductRepository extends BaseRepository {
       };
     }
   }
+
+  async getAllGroupByCategory(page, limit, listCategory) {
+    const data = {};
+    try {
+      // eslint-disable-next-line no-restricted-syntax
+      for (const category of listCategory) {
+        const products = await this.model.find({ category_id: category._id })
+          .select({ variations: 0, properties: 0 })
+          .sort({ createdAt: -1 })
+          .populate([
+            {
+              path: "store_id",
+              model: "Store",
+              select: ["store_name", "store_image"],
+            },
+            {
+              path: "discount_id",
+              model: "Discount",
+              select: ["name", "description", "discount_percent"],
+            },
+          ])
+          .skip(page * limit)
+          .limit(limit)
+          .exec();
+
+        data[category.category_name] = products;
+      }
+      return { isSuccess: true, data };
+    } catch (error) {
+      console.error(error);
+      return {
+        isSuccess: false,
+        error:
+          error.message
+          || "Some error occurred while getting product information!",
+      };
+    }
+  }
 }
 
 export default ProductRepository;

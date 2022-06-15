@@ -20,6 +20,10 @@ module.exports = {
     "import/no-unresolved": [0],
     "consistent-return": "off",
     "import/prefer-default-export": "off",
+    camelcase: "off",
     "no-underscore-dangle": "off",
+    "no-console": "off",
+    "no-shadow": "off",
+    "no-await-in-loop": "off",
   },
 };

@@ -170,6 +170,21 @@ class CategoryRepository extends BaseRepository {
       };
     }
   }
+
+  async getListOfCateGory() {
+    try {
+      const categories = await this.model.find({}).select("_id, category_name");
+      return { isSuccess: true, data: categories };
+    } catch (error) {
+      console.error(error);
+      return {
+        isSuccess: false,
+        error:
+          error.message
+          || "Some error occurred while getting product variations!",
+      };
+    }
+  }
 }
 
 export default CategoryRepository;

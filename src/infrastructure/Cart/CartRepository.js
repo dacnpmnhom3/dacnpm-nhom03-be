@@ -1,5 +1,5 @@
 import autoBind from "auto-bind";
-import CartModel from "./cartModel";
+import CartModel from "./CartModel";
 import BaseRepository from "../../../base/BaseRepository";
 
 class CartRepository extends BaseRepository {
@@ -56,6 +56,69 @@ class CartRepository extends BaseRepository {
         error:
           error.message
           || "Some error occurred while getting Cart information!",
+      };
+    }
+  }
+
+  async addToCart(userId, productId, quantity, productVariationId) {
+    try {
+      const cart = await this.model
+        .findOne({ user_id: userId });
+      if (!cart) {
+        const newCart = new CartModel({
+          user_id: userId,
+          items: [
+            {
+              product_id: productId,
+              quantity,
+              product_variation_id: productVariationId,
+            },
+          ],
+        });
+        const result = await newCart.save();
+        return {
+          isSuccess: true,
+          data: result,
+        };
+      }
+      cart.items.push({
+        product_id: productId,
+        quantity,
+        product_variation_id: productVariationId,
+      });
+
+      const result = await cart.save();
+      return {
+        isSuccess: true,
+        data: result,
+      };
+    } catch (error) {
+      return {
+        isSuccess: false,
+        error:
+          error.message
+          || "Some error occurred while adding to Cart!",
+      };
+    }
+  }
+
+  // gọi khi user checkout thành công
+  async restartCart(userId) {
+    try {
+      const cart = await this.model
+        .findOne({ user_id: userId });
+      cart.items = [];
+      const result = await cart.save();
+      return {
+        isSuccess: true,
+        data: result,
+      };
+    } catch (error) {
+      return {
+        isSuccess: false,
+        error:
+          error.message
+          || "Some error occurred while adding to Cart!",
       };
     }
   }

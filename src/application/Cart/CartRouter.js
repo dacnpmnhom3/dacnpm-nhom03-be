@@ -27,4 +27,20 @@ router.get("/userid/:userId", async (req, res) => {
   res.status(result.statusCode).json(result);
 });
 
+router.post("/", async (req, res) => {
+  const data = req.body;
+  const result = await CartService.addToCart(
+    data.user_id,
+    data.product_id,
+    data.quantity,
+    data.product_variation_id,
+  );
+  res.status(result.statusCode).json(result);
+});
+
+router.delete("/", async (req, res) => {
+  const data = req.body;
+  const result = await CartService.restartCart(data.user_id);
+  res.status(result.statusCode).json(result);
+});
 export default router;
