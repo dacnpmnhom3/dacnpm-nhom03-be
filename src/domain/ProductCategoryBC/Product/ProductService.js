@@ -7,7 +7,7 @@ import BaseService from "../../../../base/BaseService";
 import ProductRepository from "../../../infrastructure/ProductCategoryBC/Product/productRepository";
 import HttpError from "../../../utils/HttpError";
 import HttpResponse from "../../../utils/HttpResponse";
-import CategoryRepository from "../../../infrastructure/ProductCategoryBC/Category/categoryRepository";
+import CategoryRepository from "../../../infrastructure/ProductCategoryBC/Category/CategoryRepository";
 
 import createProductFac from "./ProductFactory";
 
