@@ -11,7 +11,7 @@ const storeSchema = new Schema(
       type: String,
     },
     store_owner_id: {
-      type: Number,
+      type: String,
     },
     warehouses: [
       {
@@ -38,4 +38,6 @@ const storeSchema = new Schema(
   },
 );
 
-export default mongoose.model("Store", storeSchema);
+const Store = mongoose.model("Store", storeSchema);
+
+export default Store;

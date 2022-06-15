@@ -9,7 +9,7 @@ import BaseRepository from "../../../../base/BaseRepository";
 import Category from "../Category/CategoryModel";
 import CategoryRepository from "../Category/CategoryRepository";
 // eslint-disable-next-line no-unused-vars
-import StoreModel from "../../StoreBC/Store/storeModel";
+// import StoreModel from "../../StoreBC/Store/store.model";
 
 const { Types } = mongoose;
 

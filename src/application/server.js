@@ -13,6 +13,7 @@ import orderRouter from "./OrderBC/OrderRouter";
 import commentsRouter from "./CommentBC/CommentRouter";
 import productRouter from "./ProductCategoryBC/productRouter";
 import categoryRouter from "./ProductCategoryBC/categoryRouter";
+import storeRouter from "./StoreBC/storeRouter";
 import cartRouter from "./Cart/CartRouter";
 
 import connectDB from "../../config/MongoDBConfig";
@@ -48,6 +49,7 @@ app.use("/api/order", orderRouter);
 app.use("/api/product", productRouter);
 app.use("/api/comment", commentsRouter);
 app.use("/api/category", categoryRouter);
+app.use("/api/store", storeRouter);
 app.use("/api/cart", cartRouter);
 
 const port = process.env.PORT || 4000;
