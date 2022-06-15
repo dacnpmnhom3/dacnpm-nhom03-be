@@ -7,10 +7,13 @@ import BaseService from "../../../../base/BaseService";
 import ProductRepository from "../../../infrastructure/ProductCategoryBC/Product/productRepository";
 import HttpError from "../../../utils/HttpError";
 import HttpResponse from "../../../utils/HttpResponse";
+import CategoryRepository from "../../../infrastructure/ProductCategoryBC/Category/categoryRepository";
 
 import createProductFac from "./ProductFactory";
 
 const productRepository = new ProductRepository();
+
+const categoryRepository = new CategoryRepository();
 
 class ProductService extends BaseService {
   constructor() {
@@ -69,8 +72,11 @@ class ProductService extends BaseService {
 
   // get list product
   async getAll(page, limit) {
-    const result = await this.repository.getAll(page, limit);
-    if (!result.isSuccess) return new HttpError(result.error);
+    const categories = await categoryRepository.getListOfCateGory();
+    if (!categories.isSuccess) return new HttpError(categories.error);
+    const listCategory = categories.data;
+    const result = await this.repository.getAllGroupByCategory(page, limit, listCategory);
+    //if (!result.isSuccess) return new HttpError(result.error);
     return new HttpResponse(result);
   }
 }

@@ -34,6 +34,8 @@ class CategoryService extends BaseService {
   // async getSuggetedColors(categoryId) {
 
   // }
+
+
 }
 
 export default new CategoryService();
