@@ -1,6 +1,6 @@
 import autoBind from "auto-bind";
 
-import Store from "./store.model";
+import Store from "./storeModel";
 
 import BaseRepository from "../../../../base/BaseRepository";
 
