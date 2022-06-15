@@ -60,7 +60,7 @@ class CartRepository extends BaseRepository {
     }
   }
 
-  async addToCard(userId, productId, quantity, productVariationId) {
+  async addToCart(userId, productId, quantity, productVariationId) {
     try {
       const cart = await this.model
         .findOne({ user_id: userId });

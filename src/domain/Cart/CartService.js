@@ -20,8 +20,8 @@ class CartService extends BaseService {
     return new HttpResponse(result.data);
   }
 
-  async addToCard(userId, productId, quantity) {
-    const result = await this.repository.addToCard(userId, productId, quantity);
+  async addToCart(userId, productId, quantity) {
+    const result = await this.repository.addToCart(userId, productId, quantity);
     if (!result.isSuccess) return new HttpError(result.error);
 
     return new HttpResponse(result.data);
