@@ -1,5 +1,5 @@
 import joi from "@hapi/joi";
-import Comment from "./commentDomainModel";
+import Comment from "./CommentDomainModel";
 
 const comment = (data) => {
     const comment = joi.object({
