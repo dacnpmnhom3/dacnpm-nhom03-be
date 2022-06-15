@@ -66,6 +66,13 @@ class ProductService extends BaseService {
     if (!result.isSuccess) return new HttpError(result.error);
     return new HttpResponse(result);
   }
+
+  // get list product
+  async getAll(page, limit) {
+    const result = await this.repository.getAll(page, limit);
+    if (!result.isSuccess) return new HttpError(result.error);
+    return new HttpResponse(result);
+  }
 }
 
 export default new ProductService();
