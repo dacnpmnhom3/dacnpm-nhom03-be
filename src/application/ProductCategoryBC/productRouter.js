@@ -1,5 +1,6 @@
 import express from "express";
 import ProductService from "../../domain/ProductCategoryBC/Product/ProductService";
+import { getPage, getPageSize } from "../../../utils/Pagination";
 
 const router = express.Router();
 
@@ -51,6 +52,15 @@ router.post("/", async (req, res) => {
   const data = req.body;
   const result = await ProductService.createProduct(data);
 
+  res.status(result.statusCode).json(result);
+});
+
+// list of product
+router.get("/", async (req, res) => {
+  const page = getPage(req.query.page);
+  const limit = getPageSize(req.query.limit);
+
+  const result = await ProductService.getAll(page, limit);
   res.status(result.statusCode).json(result);
 });
 
