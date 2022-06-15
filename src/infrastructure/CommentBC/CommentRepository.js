@@ -15,7 +15,7 @@ class CommentRepository extends BaseRepository {
         [
           {
             path: "product_id",
-            model: "Products",
+            model: "Product",
             select: ["name", "thumbnails"],
           },
           {
@@ -41,7 +41,7 @@ class CommentRepository extends BaseRepository {
         [
           {
             path: "product_id",
-            model: "Products",
+            model: "Product",
             select: ["name", "thumbnails"],
           },
           {
@@ -77,7 +77,7 @@ class CommentRepository extends BaseRepository {
         [
           {
             path: "product_id",
-            model: "Products",
+            model: "Product",
             select: ["name", "thumbnails"],
           },
           {
