@@ -101,6 +101,27 @@ class CartRepository extends BaseRepository {
       };
     }
   }
+
+  // gọi khi user checkout thành công
+  async restartCart(userId) {
+    try {
+      const cart = await this.model
+        .findOne({ user_id: userId });
+      cart.items = [];
+      const result = await cart.save();
+      return {
+        isSuccess: true,
+        data: result,
+      };
+    } catch (error) {
+      return {
+        isSuccess: false,
+        error:
+          error.message
+          || "Some error occurred while adding to Cart!",
+      };
+    }
+  }
 }
 
 export default CartRepository;
